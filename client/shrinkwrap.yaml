@@ -1,0 +1,133 @@
+createdWith: pnpm@0.68.0
+dependencies:
+  react-router-dom@^4.1.2: 4.1.2
+  styled-components@^2.1.1: 2.1.1
+packages:
+  /asap/2.0.6: e50347611d7e690943208bbdafebcbc2fb866d46
+  /base64-js/1.2.1: a91947da1f4a516ea38e5b4ec0ec3773675e0886
+  /buffer/5.0.6:
+    dependencies:
+      base64-js: 1.2.1
+      ieee754: 1.1.8
+    resolution: 2ea669f7eec0b6eda05b08f8b5ff661b28573588
+  /core-js/1.2.7: 652294c14651db28fa93bd2d5ff2983a4f08c636
+  /css-color-keywords/1.0.0: fea2616dc676b2962686b3af8dbdbe180b244e05
+  /css-to-react-native/2.0.4:
+    dependencies:
+      css-color-keywords: 1.0.0
+      fbjs: 0.8.14
+      postcss-value-parser: 3.3.0
+    resolution: cf4cc407558b3474d4ba8be1a2cd3b6ce713101b
+  /encoding/0.1.12:
+    dependencies:
+      iconv-lite: 0.4.18
+    resolution: 538b66f3ee62cd1ab51ec323829d1f9480c74beb
+  /fbjs/0.8.14:
+    dependencies:
+      core-js: 1.2.7
+      isomorphic-fetch: 2.2.1
+      loose-envify: 1.3.1
+      object-assign: 4.1.1
+      promise: 7.3.1
+      setimmediate: 1.0.5
+      ua-parser-js: 0.7.14
+    resolution: d1dbe2be254c35a91e09f31f9cd50a40b2a0ed1c
+  /has-flag/1.0.0: 9d9e793165ce017a00f00418c43f942a7b1d11fa
+  /history/4.6.3:
+    dependencies:
+      invariant: 2.2.2
+      loose-envify: 1.3.1
+      resolve-pathname: 2.1.0
+      value-equal: 0.2.1
+      warning: 3.0.0
+    resolution: 6d723a8712c581d6bef37e8c26f4aedc6eb86967
+  /hoist-non-react-statics/1.2.0: aa448cf0986d55cc40773b17174b7dd066cb7cfb
+  /iconv-lite/0.4.18: 23d8656b16aae6742ac29732ea8f0336a4789cf2
+  /ieee754/1.1.8: be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4
+  /invariant/2.2.2:
+    dependencies:
+      loose-envify: 1.3.1
+    resolution: 9e1f56ac0acdb6bf303306f338be3b204ae60360
+  /is-function/1.0.1: 12cfb98b65b57dd3d193a3121f5f6e2f437602b5
+  /is-plain-object/2.0.4:
+    dependencies:
+      isobject: 3.0.1
+    resolution: 2c163b3fafb1b606d9d17928f05c2a1c38e07677
+  /is-stream/1.1.0: 12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44
+  /isarray/0.0.1: 8a18acfca9a8f4177e09abfc6038939b05d1eedf
+  /isobject/3.0.1: 4e431e92b11a9731636aa1f9c8d1ccbcfdab78df
+  /isomorphic-fetch/2.2.1:
+    dependencies:
+      node-fetch: 1.7.1
+      whatwg-fetch: 2.0.3
+    resolution: 611ae1acf14f5e81f729507472819fe9733558a9
+  /js-tokens/3.0.2: 9866df395102130e38f7f996bceb65443209c25b
+  /loose-envify/1.3.1:
+    dependencies:
+      js-tokens: 3.0.2
+    resolution: d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848
+  /node-fetch/1.7.1:
+    dependencies:
+      encoding: 0.1.12
+      is-stream: 1.1.0
+    resolution: 899cb3d0a3c92f952c47f1b876f4c8aeabd400d5
+  /object-assign/4.1.1: 2109adc7965887cfc05cbbd442cac8bfbb360863
+  /path-to-regexp/1.7.0:
+    dependencies:
+      isarray: 0.0.1
+    resolution: 59fde0f435badacba103a84e9d3bc64e96b9937d
+  /postcss-value-parser/3.3.0: 87f38f9f18f774a4ab4c8a232f5c5ce8872a9d15
+  /promise/7.3.1:
+    dependencies:
+      asap: 2.0.6
+    resolution: 064b72602b18f90f29192b8b1bc418ffd1ebd3bf
+  /prop-types/15.5.10:
+    dependencies:
+      fbjs: 0.8.14
+      loose-envify: 1.3.1
+    resolution: 2797dfc3126182e3a95e3dfbb2e893ddd7456154
+  /react-router-dom/4.1.2:
+    dependencies:
+      history: 4.6.3
+      loose-envify: 1.3.1
+      prop-types: 15.5.10
+      react-router: 4.1.2
+    resolution: 7f8a7ca868d32acadd19ca09543b40d26df8ec37
+  /react-router/4.1.2:
+    dependencies:
+      history: 4.6.3
+      hoist-non-react-statics: 1.2.0
+      invariant: 2.2.2
+      loose-envify: 1.3.1
+      path-to-regexp: 1.7.0
+      prop-types: 15.5.10
+      warning: 3.0.0
+    resolution: 7ae027341abc42eb08ad9f7a8cac08d0563672ce
+  /resolve-pathname/2.1.0: e8358801b86b83b17560d4e3c382d7aef2100944
+  /setimmediate/1.0.5: 290cbb232e306942d7d7ea9b83732ab7856f8285
+  /styled-components/2.1.1:
+    dependencies:
+      buffer: 5.0.6
+      css-to-react-native: 2.0.4
+      fbjs: 0.8.14
+      hoist-non-react-statics: 1.2.0
+      is-function: 1.0.1
+      is-plain-object: 2.0.4
+      prop-types: 15.5.10
+      stylis: 3.2.8
+      supports-color: 3.2.3
+    resolution: 7e9b5bc319ee3963b47aebb74f4658119ea9d484
+  /stylis/3.2.8: 9b23a3e06597f7944a3d9ae880d5796248b8784f
+  /supports-color/3.2.3:
+    dependencies:
+      has-flag: 1.0.0
+    resolution: 65ac0504b3954171d8a64946b2ae3cbb8a5f54f6
+  /ua-parser-js/0.7.14: 110d53fa4c3f326c121292bbeac904d2e03387ca
+  /value-equal/0.2.1: c220a304361fce6994dbbedaa3c7e1a1b895871d
+  /warning/3.0.0:
+    dependencies:
+      loose-envify: 1.3.1
+    resolution: 32e5377cb572de4ab04753bdf8821c01ed605b7c
+  /whatwg-fetch/2.0.3: 9c84ec2dcf68187ff00bc64e1274b442176e1c84
+registry: 'https://registry.npmjs.org/'
+version: 2
