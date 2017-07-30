@@ -5,9 +5,10 @@ const styled = require('styled-components').default;
     const Menu = styled.ul `
 	   margin: 0;
      padding: 0;
-     height: 100%;
+     height: 60px;
      width: 100%;
      display: table;
+     background-color: #29caff;
     `;
 
     const Section = styled.li `
@@ -24,16 +25,16 @@ const styled = require('styled-components').default;
 
     const Component = styled(Link) `
 	   text-decoration: none;
-     color: #e6e6e6;
+     color: white;
     `;
 
 function Nav() {
     return (
             <Menu>
               <Section><Component to='/home'>Home</Component></Section>
-              <Section><Component  to='/about'>About</Component></Section>
-              <Section><Component  to='/portfolio'>Portfolio</Component></Section>
-              <Section><Component  to='/contact'>Contact</Component></Section>
+              <Section><Component  to='/polls'>Polls</Component></Section>
+              <Section><Component  to='/login'>Login</Component></Section>
+              <Section><Component  to='/register'>Register</Component></Section>
             </Menu>
           )
         }
