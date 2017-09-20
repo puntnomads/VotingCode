@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const Poll = require('../models/poll');
 const Verify = require('./verify');
 
+/* eslint-disable */
 const pollRouter = express.Router();
+/* eslint-enable */
 pollRouter.use(bodyParser.json());
 
 pollRouter.route('/')

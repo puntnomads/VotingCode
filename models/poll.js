@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const Poll = new Schema({
   user_id: String,
-  name: String,
+  title: String,
+  tags: [],
   options: [],
 });
 

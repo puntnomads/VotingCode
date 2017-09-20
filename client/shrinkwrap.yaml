@@ -1,16 +1,24 @@
 createdWith: pnpm@0.68.0
 dependencies:
+  react-bootstrap@^0.31.1: 0.31.1
   react-router-dom@^4.1.2: 4.1.2
   styled-components@^2.1.1: 2.1.1
 packages:
   /asap/2.0.6: e50347611d7e690943208bbdafebcbc2fb866d46
+  /babel-runtime/6.25.0:
+    dependencies:
+      core-js: 2.4.1
+      regenerator-runtime: 0.10.5
+    resolution: 33b98eaa5d482bb01a8d1aa6b437ad2b01aec41c
   /base64-js/1.2.1: a91947da1f4a516ea38e5b4ec0ec3773675e0886
   /buffer/5.0.6:
     dependencies:
       base64-js: 1.2.1
       ieee754: 1.1.8
     resolution: 2ea669f7eec0b6eda05b08f8b5ff661b28573588
+  /classnames/2.2.5: fb3801d453467649ef3603c7d61a02bd129bde6d
   /core-js/1.2.7: 652294c14651db28fa93bd2d5ff2983a4f08c636
+  /core-js/2.4.1: 4de911e667b0eae9124e34254b53aea6fc618d3e
   /css-color-keywords/1.0.0: fea2616dc676b2962686b3af8dbdbe180b244e05
   /css-to-react-native/2.0.4:
     dependencies:
@@ -18,6 +26,7 @@ packages:
       fbjs: 0.8.14
       postcss-value-parser: 3.3.0
     resolution: cf4cc407558b3474d4ba8be1a2cd3b6ce713101b
+  /dom-helpers/3.2.1: 3203e07fed217bd1f424b019735582fc37b2825a
   /encoding/0.1.12:
     dependencies:
       iconv-lite: 0.4.18
@@ -62,6 +71,7 @@ packages:
       whatwg-fetch: 2.0.3
     resolution: 611ae1acf14f5e81f729507472819fe9733558a9
   /js-tokens/3.0.2: 9866df395102130e38f7f996bceb65443209c25b
+  /keycode/2.1.9: 964a23c54e4889405b4861a5c9f0480d45141dfa
   /loose-envify/1.3.1:
     dependencies:
       js-tokens: 3.0.2
@@ -81,11 +91,41 @@ packages:
     dependencies:
       asap: 2.0.6
     resolution: 064b72602b18f90f29192b8b1bc418ffd1ebd3bf
+  /prop-types-extra/1.0.1:
+    dependencies:
+      warning: 3.0.0
+    resolution: a57bd4810e82d27a3ff4317ecc1b4ad005f79a82
   /prop-types/15.5.10:
     dependencies:
       fbjs: 0.8.14
       loose-envify: 1.3.1
     resolution: 2797dfc3126182e3a95e3dfbb2e893ddd7456154
+  /react-bootstrap/0.31.1:
+    dependencies:
+      babel-runtime: 6.25.0
+      classnames: 2.2.5
+      dom-helpers: 3.2.1
+      invariant: 2.2.2
+      keycode: 2.1.9
+      prop-types: 15.5.10
+      prop-types-extra: 1.0.1
+      react-overlays: 0.7.0
+      react-prop-types: 0.4.0
+      uncontrollable: 4.1.0
+      warning: 3.0.0
+    resolution: 679c9f73ae77ff207867d536496207291f3a3ed7
+  /react-overlays/0.7.0:
+    dependencies:
+      classnames: 2.2.5
+      dom-helpers: 3.2.1
+      prop-types: 15.5.10
+      react-prop-types: 0.4.0
+      warning: 3.0.0
+    resolution: 531898ff566c7e5c7226ead2863b8cf9fbb5a981
+  /react-prop-types/0.4.0:
+    dependencies:
+      warning: 3.0.0
+    resolution: f99b0bfb4006929c9af2051e7c1414a5c75b93d0
   /react-router-dom/4.1.2:
     dependencies:
       history: 4.6.3
@@ -103,6 +143,7 @@ packages:
       prop-types: 15.5.10
       warning: 3.0.0
     resolution: 7ae027341abc42eb08ad9f7a8cac08d0563672ce
+  /regenerator-runtime/0.10.5: 336c3efc1220adcedda2c9fab67b5a7955a33658
   /resolve-pathname/2.1.0: e8358801b86b83b17560d4e3c382d7aef2100944
   /setimmediate/1.0.5: 290cbb232e306942d7d7ea9b83732ab7856f8285
   /styled-components/2.1.1:
@@ -123,6 +164,10 @@ packages:
       has-flag: 1.0.0
     resolution: 65ac0504b3954171d8a64946b2ae3cbb8a5f54f6
   /ua-parser-js/0.7.14: 110d53fa4c3f326c121292bbeac904d2e03387ca
+  /uncontrollable/4.1.0:
+    dependencies:
+      invariant: 2.2.2
+    resolution: e0358291252e1865222d90939b19f2f49f81c1a9
   /value-equal/0.2.1: c220a304361fce6994dbbedaa3c7e1a1b895871d
   /warning/3.0.0:
     dependencies:

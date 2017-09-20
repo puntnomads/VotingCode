@@ -1,5 +1,7 @@
 const express = require('express');
+/* eslint-disable */
 const router = express.Router();
+/* eslint-enable */
 const passport = require('passport');
 const User = require('../models/user');
 const Verify = require('./verify');
