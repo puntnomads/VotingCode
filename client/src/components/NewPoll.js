@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 
 export default class NewPoll extends React.Component {
   constructor(props) {
@@ -9,8 +8,7 @@ export default class NewPoll extends React.Component {
       title: "",
       option1: "",
       option2: "",
-      number: 2,
-      current: ""
+      number: 2
     };
   }
 
@@ -22,12 +20,28 @@ export default class NewPoll extends React.Component {
     );
   };
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value,
-      current: event.target.id
-    });
-  };
+  handleChange = (event) => {
+    const boolean = event.target.id + 'Empty';
+    if(event.target.value.length > 0){
+      this.setState({
+        [event.target.id]: event.target.value,
+        [boolean]: false
+      });
+    } else {
+      this.setState({
+        [event.target.id]: event.target.value,
+        [boolean]: true
+      });
+    }
+  }
+
+  handleBlurred = (event) => {
+    const boolean = event.target.id + 'Empty';
+      this.setState({
+        [event.target.id]: event.target.value,
+        [boolean]: true
+      });
+  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -42,22 +56,19 @@ export default class NewPoll extends React.Component {
 
   deleteOption = () => {
     const number = this.state.number - 1;
+    const boolean = `option${this.state.number}Empty`;
     this.setState({
-      number: number
+      number: number,
+      [boolean]: false
     });
   };
 
-  validateState = (ref, value) => {
-    if(this.state[value] === undefined){
-      this.setState({
-        [value]: ''
-      });
-    }
-    const current = this.state.current;
+  validateState = value => {
+    const boolean = value + 'Empty';
     if (
-      this.refs[ref] !== undefined &&
+      this.state[value] !== undefined &&
       this.state[value].length === 0 &&
-      current === value
+      this.state[boolean] === true
     ) {
       return "error";
     }
@@ -65,22 +76,21 @@ export default class NewPoll extends React.Component {
 
   render() {
     const number = this.state.number;
-    const option = `option${number}`;
     return (
-      <div className="login">
+      <div className="form">
         <h1>New Poll</h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup
             controlId="title"
             bsSize="large"
-            ref={"title"}
-            validationState={this.validateState("title", "title")}
+            validationState={this.validateState("title")}
           >
             <ControlLabel>Title</ControlLabel>
             <FormControl
               autoFocus
               type="text"
               value={this.state.title}
+              onBlur={this.handleBlurred}
               onChange={this.handleChange}
             />
           </FormGroup>
@@ -91,11 +101,7 @@ export default class NewPoll extends React.Component {
                   key={i + 1}
                   controlId={`option${i + 1}`}
                   bsSize="large"
-                  ref={`option${i + 1}`}
-                  validationState={this.validateState(
-                    `option${i + 1}`,
-                    `option${i + 1}`
-                  )}
+                  validationState={this.validateState(`option${i + 1}`)}
                 >
                   <ControlLabel>
                     Option {i + 1}
@@ -103,6 +109,7 @@ export default class NewPoll extends React.Component {
                   <FormControl
                     type="text"
                     value={this.state.option}
+                    onBlur={this.handleBlurred}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
@@ -113,11 +120,7 @@ export default class NewPoll extends React.Component {
                   key={i + 1}
                   controlId={`option${i + 1}`}
                   bsSize="large"
-                  ref={`option${i + 1}`}
-                  validationState={this.validateState(
-                    `option${i + 1}`,
-                    `option${i + 1}`
-                  )}
+                  validationState={this.validateState(`option${i + 1}`)}
                 >
                   <ControlLabel>
                     Option {i + 1}
@@ -125,6 +128,7 @@ export default class NewPoll extends React.Component {
                   <FormControl
                     type="text"
                     value={this.state.option}
+                    onBlur={this.handleBlurred}
                     onChange={this.handleChange}
                   />
                   <div className="text-center">
