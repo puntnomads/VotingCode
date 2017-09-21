@@ -1,8 +1,11 @@
+body {
+  background-color: rgb(240,240,240);
+}
+
 .polls {
   padding-top: 20px;
   padding-bottom: 40px;
   text-align: center;
-  background-color: rgb(240,240,240);
   min-height: 100vh;
 }
 
@@ -44,6 +47,10 @@
 
 .home {
   text-align: center;
+}
+
+.profile {
+  background-color : rgb(240,240,240);
 }
 
 .navbar {
