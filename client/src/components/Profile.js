@@ -61,7 +61,7 @@ export default class Profile extends React.Component {
       <div>
       <div className="form">
       <h1>Profile</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <FormGroup controlId="name" bsSize="large">
             <ControlLabel>Name</ControlLabel>
             <FormControl

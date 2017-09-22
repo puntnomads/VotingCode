@@ -6,6 +6,7 @@ import Login from "./Login";
 import Register from "./Register";
 import NewPoll from "./NewPoll";
 import Profile from "./Profile";
+import Poll from "./Poll";
 
 export default class Main extends React.Component {
   render() {
@@ -18,6 +19,7 @@ export default class Main extends React.Component {
           <Route path='/register' component={Register}/>
           <Route path='/newpoll' component={NewPoll}/>
           <Route path='/profile' component={Profile}/>
+          <Route path='/poll' component={Poll}/>
           <Route render={function () { return <p>Not Found</p> }} />
         </Switch>
       </div>
