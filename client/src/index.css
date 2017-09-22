@@ -79,3 +79,19 @@ body {
     max-width: 480px;
   }
 }
+
+.tag {
+  margin: 4px;
+  padding: 4px 12px;
+  border-radius: 3px;
+  background: Azure;
+  color: #616161;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid #eee;
+  line-height: normal;
+}
+
+.tag .glyphicon {
+  font-size: inherit;
+}
