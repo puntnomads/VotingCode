@@ -13,9 +13,22 @@ export default class Polls extends React.Component {
         { title: "Story 1:Adding Headers", creator: "werwqer" },
         { title: "Story 1:Adding Headers", creator: "werwqer" },
         { title: "Story 1:Adding Headers", creator: "werwqer" }
-      ]
+      ],
+      alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
+      tags: []
     };
   }
+  
+  handleChanged = event => {
+    if (this.state.alltags.indexOf(event.target.value) > -1) {
+      const tags = this.state.tags.concat(event.target.value);
+      event.target.value = "";
+      this.setState({
+        tags: tags
+      });
+    }
+  };
+
   render() {
     const user = this.state.user;
     const thumbnails = this.state.polls;
@@ -31,6 +44,30 @@ export default class Polls extends React.Component {
               mdOffset={3}
               className="thumbnails"
             >
+              <div className="displaytags">
+              {this.state.tags.map((tag, i) =>
+                <a className="tag" key={i}>
+                  {tag} <Glyphicon glyph="remove" />
+                </a>
+              )}
+              </div>
+              <div className="taginput">
+              <input
+                type="text"
+                list="data"
+                onChange={this.handleChanged}
+                placeholder="Add a tag"
+              />
+              </div>
+              <datalist id="data">
+                <select>
+                {this.state.alltags.map((item, i) =>
+                  <option key={i} value={item}>
+                    {item}
+                  </option>
+                )}
+              </select>
+              </datalist>
               {user &&
                 <Thumbnail className="nothumbnail">
                   <Grid>

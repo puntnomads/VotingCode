@@ -6,7 +6,8 @@ import {
   Button,
   FormGroup,
   FormControl,
-  ControlLabel
+  ControlLabel,
+  Glyphicon
 } from "react-bootstrap";
 
 export default class NewPoll extends React.Component {
@@ -16,7 +17,9 @@ export default class NewPoll extends React.Component {
       title: "",
       option1: "",
       option2: "",
-      number: 2
+      number: 2,
+      alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
+      tags: []
     };
   }
 
@@ -79,6 +82,16 @@ export default class NewPoll extends React.Component {
       this.state[boolean] === true
     ) {
       return "error";
+    }
+  };
+
+  handleChanged = event => {
+    if (this.state.alltags.indexOf(event.target.value) > -1) {
+      const tags = this.state.tags.concat(event.target.value);
+      event.target.value = "";
+      this.setState({
+        tags: tags
+      });
     }
   };
 
@@ -168,6 +181,30 @@ export default class NewPoll extends React.Component {
                     Add Option
                   </Button>
                 </div>
+                <div className="displaytags">
+                {this.state.tags.map((tag, i) =>
+                  <a className="tag" key={i}>
+                    {tag} <Glyphicon glyph="remove" />
+                  </a>
+                )}
+                </div>
+                <div className="taginput">
+                <input
+                  type="text"
+                  list="data"
+                  onChange={this.handleChanged}
+                  placeholder="Add a tag"
+                />
+                </div>
+                <datalist id="data">
+                  <select>
+                  {this.state.alltags.map((item, i) =>
+                    <option key={i} value={item}>
+                      {item}
+                    </option>
+                  )}
+                </select>
+                </datalist>
                 <Button
                   block
                   bsSize="large"

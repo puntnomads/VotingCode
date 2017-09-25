@@ -28,37 +28,19 @@ export default class Login extends React.Component {
         ["Watch TV", 2],
         ["Sleep", 7]
       ],
-      tags: ["React", "Redux", "Webpack", "NodeJS", "Express", "MongoDB"],
-      selected: [],
+      tags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
       authenticated: true
     };
   }
 
-  handleTagsChange = event => {
-    if (event[0] !== undefined) {
-      const selected = this.state.selected.concat(event[0]);
-      console.log(selected);
-      this.setState({
-        selected: selected
-      });
-      this.refs.typeahead.getInstance().clear();
-    }
-  };
-
-  handleChanged = event => {
-    if (this.state.tags.indexOf(event.target.value) > -1) {
-      const selected = this.state.selected.concat(event.target.value);
-      event.target.value = "";
-      this.setState({
-        selected: selected
-      });
-    }
-  };
+  addOption = event => {
+    const value = event.target.value;
+    console.log(value);
+  }
 
   render() {
     const title = this.state.title;
-    const tags = this.state.tags;
-    console.log(this.state.data);
+    const alltags = this.state.alltags;
     return (
       <Grid>
         <Row>
@@ -72,11 +54,12 @@ export default class Login extends React.Component {
               <Col xs={12} md={5}>
                 <FormControl
                   componentClass="select"
-                  placeholder="please select"
+                  onChange={this.addOption}
                 >
+                  <option key={0}>Choose an option</option>
                   {this.state.data.map((item, i) => {
                 if(i > 0){
-                    return <option key={i} value={item[0]}>{item[0]}</option>
+                    return <option key={i+1} value={item[0]}>{item[0]}</option>
                 }
                 else {
                     return null
@@ -91,42 +74,29 @@ export default class Login extends React.Component {
               <Col xs={12} md={5}>
                 <FormControl
                   type="text"
-                  value={this.state.password}
-                  onBlur={this.handleBlurred}
-                  onChange={this.handleChange}
+                  placeholder="your own version"
+                  onChange={this.addOption}
                 />
               </Col>
             </Row>
-          {this.state.selected.map((tag, i) =>
-            <a className="tag" key={i}>
-              {tag} <Glyphicon glyph="remove" />
-            </a>
-          )}
-          <input
-            className="taginput"
-            type="text"
-            list="data"
-            onChange={this.handleChanged}
-            placeholder="Add a tag"
-          />
-          <datalist id="data">
-            <select>
-            {this.state.tags.map((item, i) =>
-              <option key={i} value={item}>
-                {item}
-              </option>
-            )}
-          </select>
-          </datalist>
-          <Button block bsSize="large" type="submit">
+          <Button block bsSize="large" type="submit" className="vote">
             Vote
           </Button>
+          <div className="displaytags">
+        {this.state.tags.map((tag, i) =>
+          <a className="tag" key={i}>
+            {tag} <Glyphicon glyph="remove" />
+          </a>
+        )}
+        </div>
+          <div>
           <Chart
             chartType="PieChart"
             width="100%"
             data={this.state.data}
             options={this.state.options}
           />
+          </div>
         </form>
       </div>
     </Col>

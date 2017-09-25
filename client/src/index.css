@@ -47,6 +47,12 @@ body {
 
 .home {
   text-align: center;
+  padding-top: 20px;
+}
+
+.home p {
+  padding: 10px 0px;
+  margin: 0;
 }
 
 .profile {
@@ -81,6 +87,7 @@ body {
   font-weight: 400;
   border: 1px solid #eee;
   line-height: normal;
+  display: inline-block;
 }
 
 .tag .glyphicon {
@@ -88,15 +95,28 @@ body {
 }
 
 .taginput {
+  text-align: center;
+}
+
+.taginput input {
   border: none;
   background: inherit;
   outline: none;
+  font-size: 16px;
+  margin: 10px;
+  text-align: center;
 }
 
 input::-webkit-calendar-picker-indicator {
   display: none;
 }
 
-.grid {
-  padding: 0;
+.displaytags {
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+}
+
+.vote {
+  margin: 10px 0px;
 }
