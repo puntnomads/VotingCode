@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Polls from "./Polls";
 import Login from "./Login";
-import Register from "./Register";
+import Register from "./Register/Register";
 import NewPoll from "./NewPoll";
 import Profile from "./Profile";
 import Poll from "./Poll";
