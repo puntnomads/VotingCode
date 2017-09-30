@@ -120,3 +120,17 @@ input::-webkit-calendar-picker-indicator {
 .vote {
   margin: 10px 0px;
 }
+
+.auth-messages {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.auth-messages ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.auth-messages a {
+  font-size: inherit;
+}

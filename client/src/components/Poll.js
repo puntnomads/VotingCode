@@ -4,12 +4,9 @@ import {
   Row,
   Col,
   Button,
-  FormGroup,
   FormControl,
-  ControlLabel,
   Glyphicon
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import { Chart } from "react-google-charts";
 
 export default class Login extends React.Component {
@@ -40,7 +37,6 @@ export default class Login extends React.Component {
 
   render() {
     const title = this.state.title;
-    const alltags = this.state.alltags;
     return (
       <Grid>
         <Row>

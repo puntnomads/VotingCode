@@ -8,7 +8,6 @@ import {
   FormControl,
   ControlLabel
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 
 export default class Profile extends React.Component {
   constructor(props) {

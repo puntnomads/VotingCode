@@ -20,7 +20,7 @@ const reducer = function userReducer (state = initialSate, action) {
       }
 
     default:
-      return state
+      return state;
   }
 }
 

@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-  User.register(new User({username: req.body.username}),
+  User.register(new User({email: req.body.email, name: req.body.name}),
   req.body.password, function(err, user) {
     if (err) {
       return res.status(500).json({err: err});
