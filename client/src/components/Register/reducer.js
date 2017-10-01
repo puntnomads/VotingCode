@@ -35,7 +35,7 @@ const reducer = function registerReducer (state = initialState, action) {
       case REGISTER_ERROR:
       return {
         errors: state.errors.concat([{
-          body: action.error.toString(),
+          body: action.error.response.data.error,
           time: new Date(),
         }]),
         messages: [],

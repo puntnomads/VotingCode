@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { applyMiddleware, createStore, compose } from "redux";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from 'react-router';
+import history from './history';
 import NavBar from "./components/NavBar";
 import Main from "./components/Main";
 import "bootstrap/dist/css/bootstrap.css";
@@ -30,7 +31,7 @@ sagaMiddleware.run(IndexSagas);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
       <div>
         <NavBar />
         <Main />

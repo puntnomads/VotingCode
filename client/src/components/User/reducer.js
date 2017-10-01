@@ -9,7 +9,7 @@ const reducer = function userReducer (state = initialSate, action) {
   switch (action.type) {
     case USER_SET:
       return {
-        id: action.token.userId,
+        id: action.token.user._id,
         token: action.token,
       }
 

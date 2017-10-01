@@ -6,7 +6,6 @@ import {
   REGISTER_ERROR,
 } from './constants';
 
-// http://localhost:3001/register
 const signupUrl = "http://localhost:3001/api/auth/register";
 
 function signupApi (name, email, password) {
@@ -15,7 +14,7 @@ function signupApi (name, email, password) {
       return response;
     })
     .catch(function (error) {
-      return error;
+      throw error;
     });
 }
 
@@ -23,7 +22,6 @@ function* registerFlow (action) {
   try {
     const { name, email, password } = action;
     const response = yield call(signupApi, name, email, password);
-    console.log(response);
     yield put({ type: REGISTER_SUCCESS, response });
   } catch (error) {
     yield put({ type: REGISTER_ERROR, error });

@@ -14,9 +14,8 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import Messages from "../Notifications/Messages";
 import Errors from "../Notifications/Errors";
-import registerRequest from "./actions";
+import loginRequest from "./actions";
 
-const nameRequired = value => (value ? undefined : "Name Required");
 const emailRequired = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? "Invalid email address"
@@ -52,23 +51,23 @@ class Input extends React.Component {
   }
 }
 
-class Register extends React.Component {
+class Login extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     invalid: PropTypes.bool.isRequired,
-    registerRequest: PropTypes.func.isRequired,
-    register: PropTypes.shape({
+    loginRequest: PropTypes.func,
+    login: PropTypes.shape({
       requesting: PropTypes.bool,
       successful: PropTypes.bool,
       messages: PropTypes.array,
       errors: PropTypes.array
     }).isRequired,
-    reset: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired
   };
 
   submit = values => {
     const { reset } = this.props;
-    this.props.registerRequest(values);
+    this.props.loginRequest(values);
     reset();
   };
 
@@ -76,25 +75,16 @@ class Register extends React.Component {
     const {
       handleSubmit,
       invalid,
-      register: { requesting, successful, messages, errors }
+      login: { requesting, successful, messages, errors }
     } = this.props;
-    
+
     return (
       <Grid>
         <Row>
           <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
             <div className="page">
-              <h1>Register</h1>
+              <h1>Login</h1>
               <form onSubmit={handleSubmit(this.submit)}>
-                <Field
-                  name="name"
-                  label="Name"
-                  controlId="name"
-                  bsSize="large"
-                  type="text"
-                  validate={nameRequired}
-                  component={Input}
-                />
                 <Field
                   name="email"
                   label="Email"
@@ -114,28 +104,20 @@ class Register extends React.Component {
                   component={Input}
                 />
                 <Button block bsSize="large" disabled={invalid} type="submit">
-                  Register
+                  Login
                 </Button>
               </form>
               <div className="auth-messages">
                 {!requesting &&
                   !!errors.length &&
-                  <Errors
-                    message="Failure to signup due to:"
-                    errors={errors}
-                  />}
+                  <Errors message="Failure to login due to:" errors={errors} />}
                 {!requesting &&
                   !!messages.length &&
                   <Messages messages={messages} />}
-                {!requesting &&
-                  successful &&
-                  <div>
-                    Registration Successful!{" "}
-                    <LinkContainer to="/login"><a>Click here to Login »</a></LinkContainer>
-                  </div>}
+                {requesting && <div>Logging in...</div>}
                 {!requesting &&
                   !successful &&
-                  <LinkContainer to="/login"><a>Already a Member? Login Here »</a></LinkContainer>}
+                  <LinkContainer to="/register"><a>Need to register? Click Here »</a></LinkContainer>}
               </div>
             </div>
           </Col>
@@ -146,13 +128,13 @@ class Register extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  register: state.register
+  login: state.login
 });
 
-const connected = connect(mapStateToProps, { registerRequest })(Register);
+const connected = connect(mapStateToProps, { loginRequest })(Login);
 
 const formed = reduxForm({
-  form: "register"
+  form: "login"
 })(connected);
 
 export default formed;
