@@ -10,6 +10,7 @@ const loginUrl = "http://localhost:3001/api/auth/login";
 function loginApi (email, password) {
     return axios.post(loginUrl, { email, password })
     .then(function (response) {
+      console.log(response.data);
       return response.data;
     })
     .catch(function (error) {
@@ -19,17 +20,15 @@ function loginApi (email, password) {
 
 function* logout () {
   yield put(unsetUser());
-  localStorage.removeItem('token');
   history.push('/login');
 }
 
 function* loginFlow (email, password) {
-  let token;
+  let user;
   try {
-    token = yield call(loginApi, email, password);
-    yield put(setUser(token));
+    user = yield call(loginApi, email, password);
+    yield put(setUser(user));
     yield put({ type: LOGIN_SUCCESS });
-    localStorage.setItem('token', JSON.stringify(token));
     history.push('/polls');
   } catch (error) {
     yield put({ type: LOGIN_ERROR, error });
@@ -38,7 +37,7 @@ function* loginFlow (email, password) {
       history.push('/login');
     }
   }
-  return token;
+  return user;
 }
 
 function* loginWatcher() {

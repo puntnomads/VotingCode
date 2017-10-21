@@ -1,22 +1,28 @@
 import { USER_SET, USER_UNSET } from './constants';
 
 const initialSate = {
-  id: null,
   token: null,
+  ttl: null,
+  created: null,
+  id: null
 }
 
 const reducer = function userReducer (state = initialSate, action) {
   switch (action.type) {
     case USER_SET:
       return {
-        id: action.token.user._id,
         token: action.token,
+        ttl: action.ttl,
+        created: action.created,
+        id: action.id
       }
 
     case USER_UNSET:
       return {
-        id: null,
         token: null,
+        ttl: null,
+        created: null,
+        id: null
       }
 
     default:
