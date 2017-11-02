@@ -17,10 +17,7 @@ const AuthorizationHOC = (WrappedComponent) => {
 
         checkAuthorization(params) {
             const { history, user } = params;
-            if (user !== null) {
-              return null;
-            }
-            else if (checkUser(user)) {
+            if (checkUser(user)) {
               return null;
             }
             else {

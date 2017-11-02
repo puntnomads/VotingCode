@@ -16,11 +16,9 @@ const AuthenticationHOC = (WrappedComponent) => {
         }
 
         checkAuthentication(params) {
-            const { history } = params;
-            if (checkUser(params.user)) {
-              history.replace({ pathname: '/poll' })
-            } else {
-              history.replace({ pathname: '/login' })
+            const { history, user } = params;
+            if (user !== null && user.token !== null) {
+              history.replace({ pathname: '/polls' });
             }
           }
 
