@@ -6,7 +6,7 @@ import Home from "./Home";
 import Polls from "./Polls";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
-import NewPoll from "./NewPoll";
+import NewPoll from "./Polls/NewPoll";
 import Profile from "./Profile";
 import Poll from "./Poll";
 

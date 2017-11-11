@@ -23,7 +23,7 @@ function setUserInfo(request) {
       token: generateToken(userInfo),
       ttl: 10080,
       created: new Date().toISOString(),
-      id: userInfo._id,
+      email: userInfo.email,
     });
   }
 

@@ -78,7 +78,7 @@ class Register extends React.Component {
       invalid,
       register: { requesting, successful, messages, errors }
     } = this.props;
-    
+
     return (
       <Grid>
         <Row>
