@@ -4,7 +4,7 @@ const initialSate = {
   token: null,
   ttl: null,
   created: null,
-  id: null
+  email: null
 }
 
 const reducer = function userReducer (state = initialSate, action) {
@@ -14,7 +14,7 @@ const reducer = function userReducer (state = initialSate, action) {
         token: action.token,
         ttl: action.ttl,
         created: action.created,
-        id: action.id
+        email: action.email
       }
 
     case USER_UNSET:
@@ -22,7 +22,7 @@ const reducer = function userReducer (state = initialSate, action) {
         token: null,
         ttl: null,
         created: null,
-        id: null
+        email: null
       }
 
     default:

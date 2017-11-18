@@ -20,7 +20,7 @@ function setUserInfo(request) {
   exports.login = function(req, res, next) {
     let userInfo = setUserInfo(req.user);
     res.status(200).json({
-      token: generateToken(userInfo),
+      token: "JWT " + generateToken(userInfo),
       ttl: 10080,
       created: new Date().toISOString(),
       email: userInfo.email,

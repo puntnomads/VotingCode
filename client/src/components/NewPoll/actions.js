@@ -1,17 +1,18 @@
 import {
   POLL_CREATING,
   POLL_CREATE_SUCCESS,
-  POLL_CREATE_ERROR
+  POLL_CREATE_ERROR,
+  POLL_CREATE_RESET
 } from "./constants";
 
-// Create requires that we pass it our current logged in user AND poll params
-// which you can view at http://widgetizer.jcolemorrison.com/explorer OR at
-// localhost:3002/explorer if you're using the local API version.
-export const pollCreate = function pollCreate (user, poll) {
+export const pollCreate = function pollCreate ({ email, options, tags, title, token}) {
   return {
     type: POLL_CREATING,
-    user,
-    poll,
+    email,
+    options,
+    tags,
+    title,
+    token
   }
 }
 
@@ -26,5 +27,11 @@ export const pollCreateError = function pollCreateError (error) {
   return {
     type: POLL_CREATE_ERROR,
     error,
+  }
+}
+
+export const pollCreateReset = function pollCreateReset () {
+  return {
+    type: POLL_CREATE_RESET,
   }
 }

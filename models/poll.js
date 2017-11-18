@@ -12,7 +12,7 @@ const Poll = new Schema({
     required: true
   },
   tags: {type: [String], required: true},
-  options: [{ option : String, votes: Number }],
+  options: [[]],
 });
 
 module.exports = mongoose.model('Poll', Poll);

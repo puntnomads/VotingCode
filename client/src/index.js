@@ -15,21 +15,26 @@ import IndexSagas from "./index-sagas";
 import { loadState, saveState } from './localStorage';
 
 const persistedState = loadState();
+
 const sagaMiddleware = createSagaMiddleware();
+
 const composeSetup =
   process.env.NODE_ENV !== "production" &&
   typeof window === "object" &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
+
 const store = createStore(
   IndexReducer,
   persistedState,
   composeSetup(applyMiddleware(sagaMiddleware)) // allows redux devtools to watch sagas
 );
+
 store.subscribe(() => {
   saveState(store.getState());
-})
+});
+
 sagaMiddleware.run(IndexSagas);
 
 ReactDOM.render(

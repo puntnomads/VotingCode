@@ -3,13 +3,15 @@ import { reducer as form } from 'redux-form';
 import user from './components/User/reducer';
 import register from './components/Register/reducer';
 import login from './components/Login/reducer';
-import polls from './components/Polls/reducer';
+import newpoll from './components/NewPoll/reducer';
+import poll from './components/Poll/reducer';
 
 const IndexReducer = combineReducers({
   register,
   user,
   login,
-  polls,
+  newpoll,
+  poll,
   form,
 });
 

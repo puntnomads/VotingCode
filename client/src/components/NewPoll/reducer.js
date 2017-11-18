@@ -1,18 +1,19 @@
 import {
   POLL_CREATING,
   POLL_CREATE_SUCCESS,
-  POLL_CREATE_ERROR
+  POLL_CREATE_ERROR,
+  POLL_CREATE_RESET
 } from "./constants";
 
 const initialState = {
-  list: [], // where we'll store polls
+  newpoll: {},
   requesting: false,
   successful: false,
   messages: [],
   errors: []
 };
 
-const reducer = function pollReducer(state = initialState, action) {
+const reducer = function newPollReducer(state = initialState, action) {
   switch (action.type) {
     case POLL_CREATING:
       return {
@@ -28,16 +29,14 @@ const reducer = function pollReducer(state = initialState, action) {
         errors: []
       };
 
-    // On success include the new poll into our list
-    // We'll render this list later.
     case POLL_CREATE_SUCCESS:
       return {
-        list: state.list.concat([action.poll]),
+        newpoll: action.poll,
         requesting: false,
         successful: true,
         messages: [
           {
-            body: `Poll: ${action.poll.name} awesomely created!`,
+            body: `Poll: ${action.poll.title} created!`,
             time: new Date()
           }
         ],
@@ -56,6 +55,15 @@ const reducer = function pollReducer(state = initialState, action) {
             time: new Date()
           }
         ])
+      };
+
+    case POLL_CREATE_RESET:
+      return {
+        newpoll: {},
+        requesting: false,
+        successful: false,
+        messages: [],
+        errors: []
       };
 
     default:

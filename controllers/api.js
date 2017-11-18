@@ -9,6 +9,7 @@ exports.getPolls = function(req, res, next) {
 };
 
 exports.createAPoll = function(req, res, next) {
+  console.log(req.body);
   const email = req.body.email;
   const title = req.body.title;
   const tags = req.body.tags;
