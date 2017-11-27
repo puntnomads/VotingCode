@@ -1,12 +1,12 @@
 import { USER_SET, USER_UNSET } from './constants'
 
-export function setUser ({ token, ttl, created, email }) {
+export function setUser ({ token, ttl, created, name }) {
   return {
     type: USER_SET,
     token,
     ttl,
     created,
-    email
+    name
   }
 }
 

@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Poll = new Schema({
-  email: {
+  name: {
     type: String,
-    lowercase: true,
     required: true
   },
   title: {

@@ -23,7 +23,7 @@ function setUserInfo(request) {
       token: "JWT " + generateToken(userInfo),
       ttl: 10080,
       created: new Date().toISOString(),
-      email: userInfo.email,
+      name: userInfo.name,
     });
   }
 

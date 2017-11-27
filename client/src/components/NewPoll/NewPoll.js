@@ -191,7 +191,7 @@ class NewPoll extends React.Component {
   submit = values => {
     const { reset } = this.props;
     values["token"] = this.props.user.token;
-    values["email"] = this.props.user.email;
+    values["name"] = this.props.user.name;
     values.options = values.options.map(function(obj) {
       return [obj, 1];
     });

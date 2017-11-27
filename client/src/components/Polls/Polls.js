@@ -1,41 +1,62 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import { pollsGet } from "./actions";
 
 class Polls extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      polls: [
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" }
-      ],
       alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
       tags: []
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.pollsGet();
   }
 
-  handleChanged = event => {
-    if (this.state.alltags.indexOf(event.target.value) > -1) {
-      const tags = this.state.tags.concat(event.target.value);
+  addTag = event => {
+    const tagsArray = this.state.tags ? this.state.tags : [];
+    const value = event.target.value;
+    if (tagsArray.indexOf(value) !== -1) {
+      return null;
+    }
+    if (this.state.alltags.indexOf(value) > -1) {
+      const newtags = tagsArray.concat(event.target.value);
       event.target.value = "";
       this.setState({
-        tags: tags
+        tags: newtags
       });
     }
   };
 
+  deleteTag = tag => {
+    console.log(tag);
+    const newtags = this.state.tags.filter(item => item !== tag);
+    this.setState({
+      tags: newtags
+    });
+  };
+
   render() {
-    const thumbnails = this.state.polls;
+    let polls = this.props.polls.polls;
+    const filteredArray = [];
+    if (this.state.tags.length > 0) {
+      const tags = this.state.tags;
+      polls.forEach(function(poll) {
+        poll.tags.forEach(function(tag) {
+          if (tags.indexOf(tag) > -1) {
+            if(filteredArray.indexOf(poll) === -1){
+              filteredArray.push(poll);
+            }
+          }
+        });
+      });
+      polls = filteredArray;
+    }
+    console.log(filteredArray);
     return (
       <div className="polls">
         <h1>Polls</h1>
@@ -49,38 +70,45 @@ class Polls extends React.Component {
               className="thumbnails"
             >
               <div className="displaytags">
-              {this.state.tags.map((tag, i) =>
-                <a className="tag" key={i}>
-                  {tag} <Glyphicon glyph="remove" />
-                </a>
-              )}
+                {this.state.tags.map((tag, i) =>
+                  <a
+                    className="tag"
+                    key={i}
+                    value={tag}
+                    onClick={() => this.deleteTag(tag)}
+                  >
+                    {tag} <Glyphicon glyph="remove" />
+                  </a>
+                )}
               </div>
               <div className="taginput">
-              <input
-                type="text"
-                list="data"
-                onChange={this.handleChanged}
-                placeholder="Add a tag"
-              />
+                <input
+                  type="text"
+                  list="data"
+                  onChange={this.addTag}
+                  placeholder="Filter list by tags"
+                />
               </div>
               <datalist id="data">
                 <select>
-                {this.state.alltags.map((item, i) =>
-                  <option key={i} value={item}>
-                    {item}
-                  </option>
-                )}
-              </select>
+                  {this.state.alltags.map((item, i) =>
+                    <option key={i} value={item}>
+                      {item}
+                    </option>
+                  )}
+                </select>
               </datalist>
-              {thumbnails.map((thumbnail, i) =>
-                <Thumbnail className="thumbnail" key={i}>
-                  <h3>
-                    {thumbnail.title}
-                  </h3>
-                  <p>
-                    created by {thumbnail.creator}
-                  </p>
-                </Thumbnail>
+              {polls.map((poll, i) =>
+                <Link key={i} to={"/poll/" + poll._id}>
+                  <Thumbnail className="thumbnail">
+                    <h3>
+                      {poll.title}
+                    </h3>
+                    <p>
+                      created by {poll.name}
+                    </p>
+                  </Thumbnail>
+                </Link>
               )}
             </Col>
           </Row>

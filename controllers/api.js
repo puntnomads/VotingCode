@@ -10,12 +10,12 @@ exports.getPolls = function(req, res, next) {
 
 exports.createAPoll = function(req, res, next) {
   console.log(req.body);
-  const email = req.body.email;
+  const name = req.body.name;
   const title = req.body.title;
   const tags = req.body.tags;
   const options = req.body.options;
   let poll = new Poll({
-    email: email,
+    name: name,
     title: title,
     tags: tags,
     options: options

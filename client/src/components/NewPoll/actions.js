@@ -5,10 +5,10 @@ import {
   POLL_CREATE_RESET
 } from "./constants";
 
-export const pollCreate = function pollCreate ({ email, options, tags, title, token}) {
+export const pollCreate = function pollCreate ({ name, options, tags, title, token}) {
   return {
     type: POLL_CREATING,
-    email,
+    name,
     options,
     tags,
     title,

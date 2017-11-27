@@ -14,7 +14,7 @@ const reducer = function userReducer (state = initialSate, action) {
         token: action.token,
         ttl: action.ttl,
         created: action.created,
-        email: action.email
+        name: action.name
       }
 
     case USER_UNSET:
