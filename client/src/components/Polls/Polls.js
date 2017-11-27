@@ -1,12 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { pollsGet } from "./actions";
 
-export default class Polls extends React.Component {
+class Polls extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: true,
       polls: [
         { title: "Story 1:Adding Headers", creator: "werwqer" },
         { title: "Story 1:Adding Headers", creator: "werwqer" },
@@ -18,7 +19,11 @@ export default class Polls extends React.Component {
       tags: []
     };
   }
-  
+
+  componentDidMount(){
+    this.props.pollsGet();
+  }
+
   handleChanged = event => {
     if (this.state.alltags.indexOf(event.target.value) > -1) {
       const tags = this.state.tags.concat(event.target.value);
@@ -30,7 +35,6 @@ export default class Polls extends React.Component {
   };
 
   render() {
-    const user = this.state.user;
     const thumbnails = this.state.polls;
     return (
       <div className="polls">
@@ -68,21 +72,6 @@ export default class Polls extends React.Component {
                 )}
               </select>
               </datalist>
-              {user &&
-                <Thumbnail className="nothumbnail">
-                  <Grid>
-                    <Row>
-                      <Col xs={7} md={4}>
-                        <p>No polls yet. Create a first one!</p>
-                      </Col>
-                      <Col xs={2} md={2}>
-                        <LinkContainer to="/login">
-                          <Glyphicon glyph="plus-sign" />
-                        </LinkContainer>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </Thumbnail>}
               {thumbnails.map((thumbnail, i) =>
                 <Thumbnail className="thumbnail" key={i}>
                   <h3>
@@ -100,3 +89,11 @@ export default class Polls extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  polls: state.polls
+});
+
+const connected = connect(mapStateToProps, { pollsGet })(Polls);
+
+export default connected;
