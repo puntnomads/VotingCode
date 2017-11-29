@@ -1,4 +1,4 @@
-import { USER_SET, USER_UNSET } from './constants'
+import { USER_SET, USER_UNSET } from './constants';
 
 export function setUser ({ token, ttl, created, name }) {
   return {

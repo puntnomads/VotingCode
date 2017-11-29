@@ -8,6 +8,14 @@ exports.getPolls = function(req, res, next) {
   });
 };
 
+exports.getUserPolls = function(req, res, next) {
+  const name = req.params.name;
+  Poll.find({ name: name }, function(err, polls) {
+    if (err) throw err;
+    res.status(201).json(polls);
+  });
+};
+
 exports.createAPoll = function(req, res, next) {
   console.log(req.body);
   const name = req.body.name;

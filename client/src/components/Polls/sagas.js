@@ -6,10 +6,10 @@ import {
 
 import { pollsGetSuccess, pollsGetError } from "./actions";
 
-const PollUrl = "http://localhost:3001/api/polls";
+const pollsUrl = "http://localhost:3001/api/polls";
 
 function getPollsApi () {
-    return axios.get(PollUrl)
+    return axios.get(pollsUrl)
     .then(function (response) {
       return response.data;
     })

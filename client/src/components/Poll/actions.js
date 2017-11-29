@@ -8,7 +8,6 @@ import {
 } from "./constants";
 
 export const pollGet = function pollGet (id) {
-  console.log(id);
   return {
     type: POLL_GETTING,
     id

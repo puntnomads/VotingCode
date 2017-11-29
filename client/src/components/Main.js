@@ -4,6 +4,7 @@ import Authenticated from './Authenticated';
 import Authorized from './Authorized';
 import Home from "./Home";
 import Polls from "./Polls/Polls";
+import UserPolls from "./UserPolls/UserPolls";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import NewPoll from "./NewPoll/NewPoll";
@@ -15,6 +16,7 @@ export default class Main extends React.Component {
     return (
       <div>
         <Switch>
+          <Route exact path='/userpolls' component={UserPolls}/>
           <Route exact path='/polls' component={Polls}/>
           <Route exact path='/login' component={Authenticated(Login)}/>
           <Route exact path='/register' component={Authenticated(Register)}/>

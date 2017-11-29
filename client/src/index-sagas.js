@@ -4,6 +4,7 @@ import LoginSaga from './components/Login/sagas';
 import NewPollSaga from './components/NewPoll/sagas';
 import PollSaga from './components/Poll/sagas';
 import PollsSaga from './components/Polls/sagas';
+import UserPollsSaga from './components/UserPolls/sagas';
 
 export default function* IndexSaga () {
   yield all([
@@ -11,6 +12,7 @@ export default function* IndexSaga () {
     LoginSaga(),
     NewPollSaga(),
     PollSaga(),
-    PollsSaga()
+    PollsSaga(),
+    UserPollsSaga()
   ])
 }

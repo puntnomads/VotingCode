@@ -4,7 +4,7 @@ const initialSate = {
   token: null,
   ttl: null,
   created: null,
-  email: null
+  name: null
 }
 
 const reducer = function userReducer (state = initialSate, action) {
@@ -22,7 +22,7 @@ const reducer = function userReducer (state = initialSate, action) {
         token: null,
         ttl: null,
         created: null,
-        email: null
+        name: null
       }
 
     default:

@@ -1,22 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { userPollsGet } from "./actions";
 
-export default class Polls extends React.Component {
+class UserPolls extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: true,
-      polls: [
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" },
-        { title: "Story 1:Adding Headers", creator: "werwqer" }
-      ],
       alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
       tags: []
     };
+  }
+
+  componentDidMount() {
+    this.props.userPollsGet(this.props.user.name);
   }
 
   handleChanged = event => {
@@ -30,8 +28,7 @@ export default class Polls extends React.Component {
   };
 
   render() {
-    const user = this.state.user;
-    const thumbnails = this.state.polls;
+    const polls = this.props.userpolls.userpolls;
     return (
       <div className="polls">
         <h1>Polls</h1>
@@ -68,7 +65,7 @@ export default class Polls extends React.Component {
                 )}
               </select>
               </datalist>
-              {user &&
+              {polls.length < 1 &&
                 <Thumbnail className="nothumbnail">
                   <Grid>
                     <Row>
@@ -83,13 +80,13 @@ export default class Polls extends React.Component {
                     </Row>
                   </Grid>
                 </Thumbnail>}
-              {thumbnails.map((thumbnail, i) =>
+              {polls.map((poll, i) =>
                 <Thumbnail className="thumbnail" key={i}>
                   <h3>
-                    {thumbnail.title}
+                    {poll.title}
                   </h3>
                   <p>
-                    created by {thumbnail.creator}
+                    created by {poll.creator}
                   </p>
                 </Thumbnail>
               )}
@@ -100,3 +97,12 @@ export default class Polls extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  userpolls: state.userpolls,
+  user: state.user
+});
+
+const connected = connect(mapStateToProps, { userPollsGet })(UserPolls);
+
+export default connected;

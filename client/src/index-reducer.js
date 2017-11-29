@@ -6,6 +6,7 @@ import login from './components/Login/reducer';
 import newpoll from './components/NewPoll/reducer';
 import poll from './components/Poll/reducer';
 import polls from './components/Polls/reducer';
+import userpolls from './components/UserPolls/reducer';
 
 const IndexReducer = combineReducers({
   register,
@@ -14,7 +15,8 @@ const IndexReducer = combineReducers({
   newpoll,
   poll,
   form,
-  polls
+  polls,
+  userpolls
 });
 
 export default IndexReducer;
