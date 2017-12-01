@@ -1,35 +1,64 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import axios from 'axios';
+import { call, put, takeLatest } from "redux-saga/effects";
+import axios from "axios";
+import { USER_POLLS_GETTING, USER_POLL_DELETING } from "./constants";
+
 import {
-  USER_POLLS_GETTING
-} from "./constants";
+  userPollsGetSuccess,
+  userPollsGetError,
+  userPollDeleteSuccess,
+  userPollDeleteError
+} from "./actions";
 
-import { userPollsGetSuccess, userPollsGetError } from "./actions";
+const userPollsUrl = "http://localhost:3001/api/userpolls";
+const deleteUserPollsUrl = "http://localhost:3001/api/polls";
 
-const userpollsUrl = "http://localhost:3001/api/polls";
-
-function getUserPollsApi (name) {
-    return axios.get(`${userpollsUrl}/${name}`)
-    .then(function (response) {
+function getUserPollsApi(name, token) {
+  return axios
+    .get(`${userPollsUrl}/${name}`, { headers : { Authorization: token } })
+    .then(function(response) {
       return response.data;
     })
-    .catch(function (error) {
+    .catch(function(error) {
       throw error;
     });
 }
 
-function* getUserPollsFlow (action) {
+function deleteUserPollApi(pollID, token) {
+  return axios
+    .delete(`${deleteUserPollsUrl}/${pollID}`, { headers : { Authorization: token } })
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function(error) {
+      throw error;
+    });
+}
+
+function* getUserPollsFlow(action) {
   try {
-    const { name } = action;
-    const response = yield call(getUserPollsApi, name);
+    const { name, token } = action;
+    const response = yield call(getUserPollsApi, name, token);
     yield put(userPollsGetSuccess(response));
   } catch (error) {
     yield put(userPollsGetError(error));
   }
 }
 
-function* getUserPollsWatcher () {
-  yield takeLatest(USER_POLLS_GETTING, getUserPollsFlow);
+function* deleteUserPollFlow(action) {
+  try {
+    const { pollID, token } = action;
+    const response = yield call(deleteUserPollApi, pollID, token);
+    yield put(userPollDeleteSuccess(response));
+  } catch (error) {
+    yield put(userPollDeleteError(error));
+  }
+}
+
+function* getUserPollsWatcher() {
+  yield [
+    takeLatest(USER_POLLS_GETTING, getUserPollsFlow),
+    takeLatest(USER_POLL_DELETING, deleteUserPollFlow),
+  ]
 }
 
 export default getUserPollsWatcher;

@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { userPollsGet } from "./actions";
+import { userPollsGet, userPollDelete } from "./actions";
 
 class UserPolls extends React.Component {
   constructor(props) {
@@ -14,24 +15,56 @@ class UserPolls extends React.Component {
   }
 
   componentDidMount() {
-    this.props.userPollsGet(this.props.user.name);
+    this.props.userPollsGet(this.props.user.name, this.props.user.token);
   }
 
-  handleChanged = event => {
-    if (this.state.alltags.indexOf(event.target.value) > -1) {
-      const tags = this.state.tags.concat(event.target.value);
+  addTag = event => {
+    const tagsArray = this.state.tags ? this.state.tags : [];
+    const value = event.target.value;
+    if (tagsArray.indexOf(value) !== -1) {
+      return null;
+    }
+    if (this.state.alltags.indexOf(value) > -1) {
+      const newtags = tagsArray.concat(event.target.value);
       event.target.value = "";
       this.setState({
-        tags: tags
+        tags: newtags
       });
     }
   };
 
+  deleteTag = tag => {
+    console.log(tag);
+    const newtags = this.state.tags.filter(item => item !== tag);
+    this.setState({
+      tags: newtags
+    });
+  };
+
+  deleteUserPoll = userPoll => {
+    this.props.userPollDelete(userPoll._id, this.props.user.token);
+    this.props.userPollsGet(this.props.user.name, this.props.user.token);
+  };
+
   render() {
-    const polls = this.props.userpolls.userpolls;
+    let polls = this.props.userpolls.userPolls;
+    const filteredArray = [];
+    if (this.state.tags.length > 0) {
+      const tags = this.state.tags;
+      polls.forEach(function(poll) {
+        poll.tags.forEach(function(tag) {
+          if (tags.indexOf(tag) > -1) {
+            if (filteredArray.indexOf(poll) === -1) {
+              filteredArray.push(poll);
+            }
+          }
+        });
+      });
+      polls = filteredArray;
+    }
     return (
       <div className="polls">
-        <h1>Polls</h1>
+        <h1>User Polls</h1>
         <Grid>
           <Row>
             <Col
@@ -42,30 +75,35 @@ class UserPolls extends React.Component {
               className="thumbnails"
             >
               <div className="displaytags">
-              {this.state.tags.map((tag, i) =>
-                <a className="tag" key={i}>
-                  {tag} <Glyphicon glyph="remove" />
-                </a>
-              )}
+                {this.state.tags.map((tag, i) =>
+                  <a
+                    className="tag"
+                    key={i}
+                    value={tag}
+                    onClick={() => this.deleteTag(tag)}
+                  >
+                    {tag} <Glyphicon glyph="remove" />
+                  </a>
+                )}
               </div>
               <div className="taginput">
-              <input
-                type="text"
-                list="data"
-                onChange={this.handleChanged}
-                placeholder="Add a tag"
-              />
+                <input
+                  type="text"
+                  list="data"
+                  onChange={this.addTag}
+                  placeholder="Filter list by tags"
+                />
               </div>
               <datalist id="data">
                 <select>
-                {this.state.alltags.map((item, i) =>
-                  <option key={i} value={item}>
-                    {item}
-                  </option>
-                )}
-              </select>
+                  {this.state.alltags.map((item, i) =>
+                    <option key={i} value={item}>
+                      {item}
+                    </option>
+                  )}
+                </select>
               </datalist>
-              {polls.length < 1 &&
+              {polls && polls.length < 1 &&
                 <Thumbnail className="nothumbnail">
                   <Grid>
                     <Row>
@@ -73,21 +111,35 @@ class UserPolls extends React.Component {
                         <p>No polls yet. Create a first one!</p>
                       </Col>
                       <Col xs={2} md={2}>
-                        <LinkContainer to="/login">
+                        <LinkContainer to="/newpoll">
                           <Glyphicon glyph="plus-sign" />
                         </LinkContainer>
                       </Col>
                     </Row>
                   </Grid>
                 </Thumbnail>}
-              {polls.map((poll, i) =>
+              {polls && polls.map((poll, i) =>
                 <Thumbnail className="thumbnail" key={i}>
-                  <h3>
-                    {poll.title}
-                  </h3>
-                  <p>
-                    created by {poll.creator}
-                  </p>
+                  <Grid>
+                    <Row>
+                      <Link key={i} to={"/poll/" + poll._id}>
+                        <Col xs={7} md={4}>
+                          <h3>
+                            {poll.title}
+                          </h3>
+                          <p>
+                            created by {poll.creator}
+                          </p>
+                        </Col>
+                      </Link>
+                      <Col xs={2} md={2}>
+                        <Glyphicon
+                          glyph="remove"
+                          onClick={() => this.deleteUserPoll(poll)}
+                        />
+                      </Col>
+                    </Row>
+                  </Grid>
                 </Thumbnail>
               )}
             </Col>
@@ -103,6 +155,8 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-const connected = connect(mapStateToProps, { userPollsGet })(UserPolls);
+const connected = connect(mapStateToProps, { userPollsGet, userPollDelete })(
+  UserPolls
+);
 
 export default connected;

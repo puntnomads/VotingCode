@@ -1,11 +1,15 @@
 import {
   USER_POLLS_GETTING,
   USER_POLLS_GETTING_SUCCESS,
-  USER_POLLS_GETTING_ERROR
+  USER_POLLS_GETTING_ERROR,
+  USER_POLL_DELETING,
+  USER_POLL_DELETING_SUCCESS,
+  USER_POLL_DELETING_ERROR
 } from "./constants";
 
 const initialState = {
-  userpolls: [],
+  userPolls: [],
+  deletedPoll: {},
   requesting: false,
   successful: false,
   messages: [],
@@ -30,7 +34,8 @@ const reducer = function userPollsReducer(state = initialState, action) {
 
     case USER_POLLS_GETTING_SUCCESS:
       return {
-        userpolls: action.userpolls,
+        ...state,
+        userPolls: action.userPolls,
         requesting: false,
         successful: true,
         messages: [
@@ -55,6 +60,49 @@ const reducer = function userPollsReducer(state = initialState, action) {
           }
         ])
       };
+
+      case USER_POLL_DELETING:
+        return {
+          ...state,
+          requesting: true,
+          successful: false,
+          messages: [
+            {
+              body: `User poll is being deleted from the backend.`,
+              time: new Date()
+            }
+          ],
+          errors: []
+        };
+
+      case USER_POLL_DELETING_SUCCESS:
+        return {
+          ...state,
+          deletedPoll: action.deletedPoll,
+          requesting: false,
+          successful: true,
+          messages: [
+            {
+              body: `User poll has successfully being deleted from the backend.`,
+              time: new Date()
+            }
+          ],
+          errors: []
+        };
+
+      case USER_POLL_DELETING_ERROR:
+        return {
+          ...state,
+          requesting: false,
+          successful: false,
+          messages: [],
+          errors: state.errors.concat([
+            {
+              body: action.error.toString(),
+              time: new Date()
+            }
+          ])
+        };
 
     default:
       return state;

@@ -17,7 +17,7 @@ module.exports = function(app) {
 
   app.use("/api", apiRoutes);
   apiRoutes.get("/polls", ApiController.getPolls);
-  apiRoutes.get("/polls/:name", ApiController.getUserPolls);
+  apiRoutes.get("/userpolls/:name", requireAuth, ApiController.getUserPolls);
   apiRoutes.post("/polls", requireAuth, ApiController.createAPoll);
   apiRoutes.get("/polls/:id", ApiController.getAPoll);
   apiRoutes.put("/polls/:id", requireAuth, ApiController.updateAPoll);

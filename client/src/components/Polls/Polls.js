@@ -48,7 +48,7 @@ class Polls extends React.Component {
       polls.forEach(function(poll) {
         poll.tags.forEach(function(tag) {
           if (tags.indexOf(tag) > -1) {
-            if(filteredArray.indexOf(poll) === -1){
+            if (filteredArray.indexOf(poll) === -1) {
               filteredArray.push(poll);
             }
           }
@@ -56,7 +56,6 @@ class Polls extends React.Component {
       });
       polls = filteredArray;
     }
-    console.log(filteredArray);
     return (
       <div className="polls">
         <h1>Polls</h1>
@@ -99,16 +98,16 @@ class Polls extends React.Component {
                 </select>
               </datalist>
               {polls.map((poll, i) =>
-                <Link key={i} to={"/poll/" + poll._id}>
-                  <Thumbnail className="thumbnail">
+                <Thumbnail className="thumbnail">
+                  <Link key={i} to={"/poll/" + poll._id}>
                     <h3>
                       {poll.title}
                     </h3>
                     <p>
                       created by {poll.name}
                     </p>
-                  </Thumbnail>
-                </Link>
+                  </Link>
+                </Thumbnail>
               )}
             </Col>
           </Row>
