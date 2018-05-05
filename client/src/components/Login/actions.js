@@ -1,10 +1,9 @@
 import { LOGIN_REQUESTING } from "./constants";
 
-const loginRequest = function loginRequest({ email, password }) {
+const loginRequest = function loginRequest(values) {
   return {
     type: LOGIN_REQUESTING,
-    email,
-    password
+    ...values
   };
 };
 

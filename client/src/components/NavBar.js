@@ -1,17 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-export default class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isLoggedIn: false };
-  }
+class NavBar extends Component {
   render() {
-    const isLoggedIn = this.state.isLoggedIn;
+    const { user } = this.props;
+    const isLoggedIn = user.token ? true : false;
     if (isLoggedIn) {
       return (
-        <Navbar inverse collapseOnSelect className='navbar'>
+        <Navbar inverse collapseOnSelect className="navbar">
           <Navbar.Header>
             <Navbar.Brand>
               <a href="/home">VotingCode</a>
@@ -21,22 +19,14 @@ export default class NavBar extends React.Component {
           <Navbar.Collapse>
             <Nav>
               <LinkContainer to="/polls">
-                <NavItem eventKey={1}>
-                  Polls
-                </NavItem>
+                <NavItem eventKey={1}>Polls</NavItem>
               </LinkContainer>
               <LinkContainer to="/newpoll">
-                <NavItem eventKey={2}>
-                  New Poll
-                </NavItem>
+                <NavItem eventKey={2}>New Poll</NavItem>
               </LinkContainer>
             </Nav>
             <Nav pullRight>
-              <NavDropdown
-                eventKey={3}
-                title="..."
-                id="basic-nav-dropdown"
-              >
+              <NavDropdown eventKey={3} title="..." id="basic-nav-dropdown">
                 <LinkContainer to="/polls">
                   <MenuItem eventKey={3.1}>My Polls</MenuItem>
                 </LinkContainer>
@@ -53,7 +43,7 @@ export default class NavBar extends React.Component {
       );
     }
     return (
-      <Navbar inverse collapseOnSelect className='navbar'>
+      <Navbar inverse collapseOnSelect className="navbar">
         <Navbar.Header>
           <Navbar.Brand>
             <a href="/">VotingCode</a>
@@ -85,3 +75,11 @@ export default class NavBar extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const connected = connect(mapStateToProps, {})(NavBar);
+
+export default connected;
