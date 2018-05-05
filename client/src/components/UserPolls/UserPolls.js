@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import Autocomplete from "react-autocomplete";
 import { userPollsGet, userPollDelete } from "./actions";
 
 class UserPolls extends React.Component {
@@ -128,13 +129,13 @@ class UserPolls extends React.Component {
                             {poll.title}
                           </h3>
                           <p>
-                            created by {poll.creator}
+                            created by {poll.name}
                           </p>
                         </Col>
                       </Link>
-                      <Col xs={2} md={2}>
+                      <Col xs={2} md={2} className="trash">
                         <Glyphicon
-                          glyph="remove"
+                          glyph="trash"
                           onClick={() => this.deleteUserPoll(poll)}
                         />
                       </Col>

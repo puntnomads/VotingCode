@@ -9,6 +9,10 @@ body {
   min-height: 100vh;
 }
 
+.polls a {
+  color: inherit;
+}
+
 .glyphicon {
   font-size: 50px;
 }
@@ -119,6 +123,10 @@ input::-webkit-calendar-picker-indicator {
 
 .vote {
   margin: 10px 0px;
+}
+
+.trash {
+  margin: 1em;
 }
 
 .auth-messages {

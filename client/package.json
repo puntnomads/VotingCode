@@ -6,6 +6,7 @@
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
     "react": "^15.6.1",
+    "react-autocomplete": "^1.7.2",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-google-charts": "^1.5.5",

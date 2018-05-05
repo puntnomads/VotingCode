@@ -98,8 +98,8 @@ class Polls extends React.Component {
                 </select>
               </datalist>
               {polls.map((poll, i) =>
-                <Thumbnail className="thumbnail">
-                  <Link key={i} to={"/poll/" + poll._id}>
+                <Thumbnail key={i} className="thumbnail">
+                  <Link to={"/poll/" + poll._id}>
                     <h3>
                       {poll.title}
                     </h3>
