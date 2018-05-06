@@ -97,6 +97,7 @@ class NewPoll extends Component {
                       key="title"
                       name="title"
                       label="Name your poll"
+                      placeholder="What is your favourite programming language?"
                       controlId="title"
                       bsSize="large"
                       type="text"

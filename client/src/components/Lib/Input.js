@@ -6,6 +6,7 @@ class Input extends Component {
     const {
       input,
       label,
+      placeholder,
       controlId,
       bsSize,
       type,
@@ -22,7 +23,11 @@ class Input extends Component {
         validationState={validationState}
       >
         {label && <ControlLabel>{label}</ControlLabel>}
-        <FormControl {...input} type={type} {...props} />
+        <FormControl
+          {...input}
+          type={type}
+          placeholder={placeholder ? placeholder : ""}
+        />
       </FormGroup>
     );
   }

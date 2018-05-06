@@ -24,6 +24,7 @@ class renderOptions extends Component {
               <Field
                 key={i + 1}
                 name={option}
+                placeholder={i === 0 ? "Java" : "JavaScript"}
                 controlId={`option${i + 1}`}
                 bsSize="large"
                 type="text"
@@ -37,6 +38,7 @@ class renderOptions extends Component {
                 <Field
                   key={i + 1}
                   name={option}
+                  placeholder={"New Option"}
                   controlId={`option${i + 1}`}
                   bsSize="large"
                   type="text"

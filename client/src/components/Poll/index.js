@@ -120,11 +120,6 @@ class Poll extends React.Component {
                     <p>or vote with</p>
                   </Col>
                   <Col xs={12} md={5}>
-                    {/* <FormControl
-                  type="text"
-                  placeholder="your own option"
-                  onChange={this.addOption}
-                /> */}
                     <Field
                       name="newOption"
                       selectedOption={selectedOption}
@@ -151,18 +146,6 @@ class Poll extends React.Component {
                   />
                 </div>
               </form>
-              <div className="auth-messages">
-                {!requesting &&
-                  !!errors.length && (
-                    <Errors
-                      message="Failure to update poll due to:"
-                      errors={errors}
-                    />
-                  )}
-                {!requesting &&
-                  !!messages.length && <Messages messages={messages} />}
-                {requesting && <div>Updating poll...</div>}
-              </div>
             </div>
           </Col>
         </Row>
