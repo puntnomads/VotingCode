@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field, change, formValueSelector } from "redux-form";
 import { Grid, Row, Col, Button, FormControl } from "react-bootstrap";
@@ -7,49 +6,20 @@ import { Chart } from "react-google-charts";
 import Messages from "../Notifications/Messages";
 import Errors from "../Notifications/Errors";
 import { pollGet, pollUpdate } from "./actions";
+import simpleInput from "../Lib/simpleInput";
 
-class Input extends React.Component {
-  render() {
-    const { input, selectedOption } = this.props;
-    return (
-      <FormControl
-        type="text"
-        placeholder="your own option"
-        disabled={selectedOption ? "disabled" : ""}
-        {...input}
-      />
-    );
-  }
-}
-
-class Poll extends React.Component {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    invalid: PropTypes.bool.isRequired,
-    pollGet: PropTypes.func,
-    poll: PropTypes.shape({
-      poll: PropTypes.object,
-      requesting: PropTypes.bool,
-      successful: PropTypes.bool,
-      messages: PropTypes.array,
-      errors: PropTypes.array
-    }).isRequired,
-    reset: PropTypes.func.isRequired
-  };
-
+class Poll extends Component {
   componentDidMount() {
     const {
       match: { params }
     } = this.props;
     this.props.pollGet(params.poll_id);
   }
-
   selectOption = event => {
     const value = event.target.value;
     this.props.dispatch(change("poll", "selectedOption", value));
     console.log(value);
   };
-
   submit = values => {
     const token = this.props.user.token;
     const id = this.props.poll.poll._id;
@@ -94,7 +64,7 @@ class Poll extends React.Component {
               <h1>{title}</h1>
               <form onSubmit={handleSubmit(this.submit)}>
                 <Row className="home">
-                  <Col xs={12} md={5}>
+                  <Col xs={12} md={this.props.user.token ? 5 : 12}>
                     <FormControl
                       componentClass="select"
                       disabled={newOption ? "disabled" : ""}
@@ -116,16 +86,20 @@ class Poll extends React.Component {
                       })}
                     </FormControl>
                   </Col>
-                  <Col xs={12} md={2}>
-                    <p>or vote with</p>
-                  </Col>
-                  <Col xs={12} md={5}>
-                    <Field
-                      name="newOption"
-                      selectedOption={selectedOption}
-                      component={Input}
-                    />
-                  </Col>
+                  {this.props.user.token && (
+                    <Col xs={12} md={2}>
+                      <p>or vote with</p>
+                    </Col>
+                  )}
+                  {this.props.user.token && (
+                    <Col xs={12} md={5}>
+                      <Field
+                        name="newOption"
+                        selectedOption={selectedOption}
+                        component={simpleInput}
+                      />
+                    </Col>
+                  )}
                 </Row>
                 <Button block bsSize="large" type="submit" className="vote">
                   Vote
