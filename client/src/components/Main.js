@@ -3,14 +3,14 @@ import { Route, Switch } from "react-router-dom";
 import Authenticated from "./Authenticated";
 import Authorized from "./Authorized";
 import Home from "./Home";
-import Polls from "./Polls/Polls";
-import UserPolls from "./UserPolls/UserPolls";
-import Login from "./Login/Login";
+import Polls from "./Polls";
+import UserPolls from "./UserPolls";
+import Login from "./Login";
 import Logout from "./Logout";
-import Register from "./Register/Register";
-import NewPoll from "./NewPoll/NewPoll";
+import Register from "./Register";
+import NewPoll from "./NewPoll";
 import Profile from "./Profile";
-import Poll from "./Poll/Poll";
+import Poll from "./Poll";
 
 export default class Main extends React.Component {
   render() {

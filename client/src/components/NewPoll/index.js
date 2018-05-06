@@ -22,9 +22,24 @@ const titleRequired = value => (value ? undefined : "Title Required");
 const tagRequired = (value, props) =>
   props.tags && props.tags.length > 0 ? undefined : "Tag Required";
 
+const NewPollLinkContainer = styled.div`
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 30px;
+  font-size: 72px;
+`;
+const Message = styled.h3`
+  text-align: center;
+  font-size: 30px;
+`;
+const LinkContainer = styled.p`
+  text-align: center;
+  font-size: 30px;
 `;
 
 class NewPoll extends Component {
@@ -124,24 +139,33 @@ class NewPoll extends Component {
                       Submit
                     </Button>
                   </form>
-                  <div className="auth-messages">
-                    {!requesting &&
-                      !!errors.length && (
-                        <Errors
-                          message="Failure to create a new poll due to:"
-                          errors={errors}
-                        />
-                      )}
-                    {!requesting &&
-                      !!messages.length && <Messages messages={messages} />}
-                    {!requesting && successful && <div>New Poll Created! </div>}
-                  </div>
                 </div>
               </Col>
             </Row>
           </Grid>
         ) : (
-          <Redirect to={"/poll/" + newpoll._id} />
+          <Grid>
+            <Row>
+              <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+                <NewPollLinkContainer>
+                  <Title>Congratulations</Title>
+                  <Message>Your poll has been posted to</Message>
+                  <LinkContainer>
+                    <a
+                      href={`${window.location.protocol}//${
+                        window.location.host
+                      }/poll/${newpoll._id}`}
+                      target="_blank"
+                    >
+                      {`${window.location.protocol}//${
+                        window.location.host
+                      }/poll/${newpoll._id}`}
+                    </a>
+                  </LinkContainer>
+                </NewPollLinkContainer>
+              </Col>
+            </Row>
+          </Grid>
         )}
       </div>
     );
