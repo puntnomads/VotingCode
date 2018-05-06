@@ -20,6 +20,6 @@ module.exports = function(app) {
   apiRoutes.get("/userpolls/:name", requireAuth, ApiController.getUserPolls);
   apiRoutes.post("/polls", requireAuth, ApiController.createAPoll);
   apiRoutes.get("/polls/:id", ApiController.getAPoll);
-  apiRoutes.put("/polls/:id", requireAuth, ApiController.updateAPoll);
+  apiRoutes.put("/polls/:id", ApiController.updateAPoll);
   apiRoutes.delete("/polls/:id", requireAuth, ApiController.deleteAPoll);
 };
