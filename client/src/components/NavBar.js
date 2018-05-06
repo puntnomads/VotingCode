@@ -26,15 +26,16 @@ class NavBar extends Component {
               </LinkContainer>
             </Nav>
             <Nav pullRight>
-              <NavDropdown eventKey={3} title="..." id="basic-nav-dropdown">
+              <NavItem eventKey={3}>{`Hello ${user.name}`}</NavItem>
+              <NavDropdown eventKey={4} title="..." id="basic-nav-dropdown">
                 <LinkContainer to="/userpolls">
-                  <MenuItem eventKey={3.1}>My Polls</MenuItem>
+                  <MenuItem eventKey={4.1}>My Polls</MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/profile">
-                  <MenuItem eventKey={3.2}>Profile</MenuItem>
+                  <MenuItem eventKey={4.2}>Profile</MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/logout">
-                  <MenuItem eventKey={3.3}>Log out</MenuItem>
+                  <MenuItem eventKey={4.3}>Log out</MenuItem>
                 </LinkContainer>
               </NavDropdown>
             </Nav>
