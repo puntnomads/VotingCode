@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { pollsGet } from "./actions";
 import alltags from "../Lib/tags";
 
-class Polls extends React.Component {
+class Polls extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +34,6 @@ class Polls extends React.Component {
   };
 
   deleteTag = tag => {
-    console.log(tag);
     const newtags = this.state.tags.filter(item => item !== tag);
     this.setState({
       tags: newtags

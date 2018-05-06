@@ -34,7 +34,6 @@ class UserPolls extends React.Component {
   };
 
   deleteTag = tag => {
-    console.log(tag);
     const newtags = this.state.tags.filter(item => item !== tag);
     this.setState({
       tags: newtags

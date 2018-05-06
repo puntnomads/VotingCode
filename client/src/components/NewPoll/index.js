@@ -69,7 +69,6 @@ class NewPoll extends Component {
     values.options = values.options.map(function(obj) {
       return [obj, 1];
     });
-    console.log(values);
     this.props.pollCreate(values);
   };
 

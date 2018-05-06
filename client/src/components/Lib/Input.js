@@ -13,7 +13,6 @@ class Input extends Component {
       meta: { touched },
       ...props
     } = this.props;
-    console.log("label: ", label);
     const validationState =
       (touched && (input.value.length === 0 && "error")) || null;
     return (

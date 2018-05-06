@@ -1,35 +1,39 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import axios from 'axios';
-import {
-  POLL_GETTING,
-  POLL_UPDATING
-} from "./constants";
+import { call, put, takeLatest } from "redux-saga/effects";
+import axios from "axios";
+import { POLL_GETTING, POLL_UPDATING } from "./constants";
 
-import { pollGetSuccess, pollGetError, pollUpdateSuccess, pollUpdateError } from "./actions";
+import {
+  pollGetSuccess,
+  pollGetError,
+  pollUpdateSuccess,
+  pollUpdateError
+} from "./actions";
 
 const PollUrl = "http://localhost:3001/api/polls";
 
-function getPollApi (id) {
-    return axios.get(`${PollUrl}/${id}`)
-    .then(function (response) {
+function getPollApi(id) {
+  return axios
+    .get(`${PollUrl}/${id}`)
+    .then(function(response) {
       return response;
     })
-    .catch(function (error) {
+    .catch(function(error) {
       throw error;
     });
 }
 
-function updatePollApi (token, options, id) {
-    return axios.put(`${PollUrl}/${id}`,{ options },{headers:{Authorization: token }})
-    .then(function (response) {
+function updatePollApi(token, options, id) {
+  return axios
+    .put(`${PollUrl}/${id}`, { options }, { headers: { Authorization: token } })
+    .then(function(response) {
       return response;
     })
-    .catch(function (error) {
+    .catch(function(error) {
       throw error;
     });
 }
 
-function* getPollFlow (action) {
+function* getPollFlow(action) {
   try {
     const { id } = action;
     const response = yield call(getPollApi, id);
@@ -39,9 +43,8 @@ function* getPollFlow (action) {
   }
 }
 
-function* updatePollFlow (action) {
+function* updatePollFlow(action) {
   try {
-    console.log(action);
     const { token, options, id } = action;
     const response = yield call(updatePollApi, token, options, id);
     yield put(pollUpdateSuccess(response.data));
@@ -50,11 +53,11 @@ function* updatePollFlow (action) {
   }
 }
 
-function* getPollWatcher () {
+function* getPollWatcher() {
   yield [
-     takeLatest(POLL_GETTING, getPollFlow),
-     takeLatest(POLL_UPDATING, updatePollFlow)
-  ]
+    takeLatest(POLL_GETTING, getPollFlow),
+    takeLatest(POLL_UPDATING, updatePollFlow)
+  ];
 }
 
 export default getPollWatcher;

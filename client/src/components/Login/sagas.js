@@ -10,7 +10,6 @@ function loginApi(values) {
   return axios
     .post(loginUrl, values)
     .then(function(response) {
-      console.log(response.data);
       return response.data;
     })
     .catch(function(error) {

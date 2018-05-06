@@ -18,7 +18,6 @@ class Poll extends Component {
   selectOption = event => {
     const value = event.target.value;
     this.props.dispatch(change("poll", "selectedOption", value));
-    console.log(value);
   };
   submit = values => {
     const token = this.props.user.token;

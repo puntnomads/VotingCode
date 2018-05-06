@@ -9,15 +9,13 @@ class tagInput extends Component {
   };
   render() {
     const { addTag } = this.props;
-    const items = this.state.alltags.map(function(tag) {
-      var Obj = {};
-      Obj["label"] = tag;
-      return Obj;
-    });
     return (
       <div className="taginput">
         <Autocomplete
-          getItemValue={item => item.label}
+          getItemValue={item => item}
+          shouldItemRender={(item, value) =>
+            item.toLowerCase().indexOf(value.toLowerCase()) > -1
+          }
           menuStyle={{
             borderRadius: "3px",
             boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
@@ -28,11 +26,11 @@ class tagInput extends Component {
             maxHeight: "50%",
             zIndex: "1"
           }}
-          items={items}
+          items={tags}
           inputProps={{ placeholder: "Add a tag" }}
           renderItem={(item, isHighlighted) => (
             <div style={{ background: isHighlighted ? "lightgray" : "white" }}>
-              {item.label}
+              {item}
             </div>
           )}
           value={this.state.value}
