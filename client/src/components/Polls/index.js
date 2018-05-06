@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { pollsGet } from "./actions";
+import alltags from "../Lib/tags";
 
 class Polls extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
+      alltags: alltags,
       tags: []
     };
   }
@@ -69,7 +70,7 @@ class Polls extends React.Component {
               className="thumbnails"
             >
               <div className="displaytags">
-                {this.state.tags.map((tag, i) =>
+                {this.state.tags.map((tag, i) => (
                   <a
                     className="tag"
                     key={i}
@@ -78,7 +79,7 @@ class Polls extends React.Component {
                   >
                     {tag} <Glyphicon glyph="remove" />
                   </a>
-                )}
+                ))}
               </div>
               <div className="taginput">
                 <input
@@ -90,25 +91,21 @@ class Polls extends React.Component {
               </div>
               <datalist id="data">
                 <select>
-                  {this.state.alltags.map((item, i) =>
+                  {this.state.alltags.map((item, i) => (
                     <option key={i} value={item}>
                       {item}
                     </option>
-                  )}
+                  ))}
                 </select>
               </datalist>
-              {polls.map((poll, i) =>
+              {polls.map((poll, i) => (
                 <Thumbnail key={i} className="thumbnail">
                   <Link to={"/poll/" + poll._id}>
-                    <h3>
-                      {poll.title}
-                    </h3>
-                    <p>
-                      created by {poll.name}
-                    </p>
+                    <h3>{poll.title}</h3>
+                    <p>created by {poll.name}</p>
                   </Link>
                 </Thumbnail>
-              )}
+              ))}
             </Col>
           </Row>
         </Grid>

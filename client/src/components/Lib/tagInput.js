@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import Autocomplete from "react-autocomplete";
+import tags from "../Lib/tags";
 
 class tagInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: "",
-      alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"]
-    };
-  }
+  state = {
+    value: "",
+    alltags: tags
+  };
   render() {
     const { addTag } = this.props;
     const items = this.state.alltags.map(function(tag) {
