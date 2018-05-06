@@ -12,7 +12,7 @@ class NavBar extends Component {
         <Navbar inverse collapseOnSelect className="navbar">
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/home">VotingCode</a>
+              <a href="/">VotingCode</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -27,7 +27,7 @@ class NavBar extends Component {
             </Nav>
             <Nav pullRight>
               <NavDropdown eventKey={3} title="..." id="basic-nav-dropdown">
-                <LinkContainer to="/polls">
+                <LinkContainer to="/userpolls">
                   <MenuItem eventKey={3.1}>My Polls</MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/profile">

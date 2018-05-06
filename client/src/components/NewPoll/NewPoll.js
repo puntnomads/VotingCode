@@ -8,125 +8,24 @@ import {
   formValueSelector
 } from "redux-form";
 import { connect } from "react-redux";
-import {
-  Grid,
-  Row,
-  Col,
-  Button,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  Glyphicon
-} from "react-bootstrap";
+import { Grid, Row, Col, Button, Glyphicon } from "react-bootstrap";
+import styled from "styled-components";
 import Messages from "../Notifications/Messages";
 import Errors from "../Notifications/Errors";
 import { pollCreate, pollCreateReset } from "./actions";
+import Input from "../Lib/Input";
+import renderOptions from "../Lib/renderOptions";
 import tagInput from "../Lib/tagInput";
+import "./index.css";
 
 const titleRequired = value => (value ? undefined : "Title Required");
-const optionRequired = value => (value ? undefined : "Option Required");
 const tagRequired = (value, props) =>
   props.tags && props.tags.length > 0 ? undefined : "Tag Required";
 
-class renderOptions extends Component {
-  componentWillMount() {
-    const { fields } = this.props;
-    if (!fields.length) {
-      fields.push();
-      fields.push();
-    }
-  }
-
-  render() {
-    const { fields } = this.props;
-    return (
-      <div>
-        {fields.map((option, i) => {
-          if (i < 2) {
-            return (
-              <Field
-                key={i + 1}
-                name={option}
-                label={`Option ${i + 1}`}
-                controlId={`option${i + 1}`}
-                bsSize="large"
-                type="text"
-                validate={optionRequired}
-                component={Input}
-              />
-            );
-          } else {
-            return (
-              <div>
-                <Field
-                  key={i + 1}
-                  name={option}
-                  label={`Option ${i + 1}`}
-                  controlId={`option${i + 1}`}
-                  bsSize="large"
-                  type="text"
-                  validate={optionRequired}
-                  component={Input}
-                />
-                <div className="text-center">
-                  <Button
-                    className="delete"
-                    bsSize="xsmall"
-                    bsStyle="danger"
-                    onClick={() => fields.remove(i)} // problem
-                    type="button"
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </div>
-            );
-          }
-        })}
-        <div className="text-center">
-          <Button
-            className="add"
-            bsSize="large"
-            bsStyle="link"
-            onClick={() => fields.push()}
-            type="button"
-          >
-            Add Option
-          </Button>
-        </div>
-      </div>
-    );
-  }
-}
-
-class Input extends React.Component {
-  render() {
-    const {
-      input,
-      label,
-      key,
-      controlId,
-      bsSize,
-      type,
-      fields,
-      meta: { touched },
-      ...props
-    } = this.props;
-    const validationState =
-      (touched && (input.value.length === 0 && "error")) || null;
-    return (
-      <FormGroup
-        key={key}
-        controlId={controlId}
-        bsSize={bsSize}
-        validationState={validationState}
-      >
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl {...input} type={type} {...props} />
-      </FormGroup>
-    );
-  }
-}
+const Title = styled.h1`
+  text-align: center;
+  margin-bottom: 30px;
+`;
 
 class NewPoll extends Component {
   componentWillUnmount() {
@@ -174,12 +73,15 @@ class NewPoll extends Component {
             <Row>
               <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
                 <div className="page">
-                  <h1>New Poll</h1>
-                  <form onSubmit={handleSubmit(this.submit)}>
+                  <Title>New Poll</Title>
+                  <form
+                    className="new-poll"
+                    onSubmit={handleSubmit(this.submit)}
+                  >
                     <Field
                       key="title"
                       name="title"
-                      label="Title"
+                      label="Name your poll"
                       controlId="title"
                       bsSize="large"
                       type="text"

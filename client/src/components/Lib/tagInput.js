@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Autocomplete from "react-autocomplete";
 
-class tagInput extends React.Component {
+class tagInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,14 +10,12 @@ class tagInput extends React.Component {
     };
   }
   render() {
-    const { input, type, list, addTag, tags } = this.props;
-    console.log(this.state.alltags);
+    const { addTag } = this.props;
     const items = this.state.alltags.map(function(tag) {
       var Obj = {};
       Obj["label"] = tag;
       return Obj;
     });
-    console.log(items);
     return (
       <div className="taginput">
         <Autocomplete

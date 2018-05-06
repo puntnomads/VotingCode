@@ -1,39 +1,38 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
-import { checkUser } from './Lib/CheckAuth';
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-const AuthenticationHOC = (WrappedComponent) => {
-    class Authenticated extends React.Component {
-        componentWillMount() {
-            this.checkAuthentication(this.props);
-        }
-
-        componentWillReceiveProps(nextProps) {
-            if (nextProps.location !== this.props.location) {
-                this.checkAuthentication(nextProps);
-            }
-        }
-
-        checkAuthentication(params) {
-            const { history, user } = params;
-            if (user !== null && user.token !== null) {
-              history.replace({ pathname: '/polls' });
-            }
-          }
-
-        render() {
-            return <WrappedComponent {...this.props} />;
-        }
+const AuthenticationHOC = WrappedComponent => {
+  class Authenticated extends React.Component {
+    componentWillMount() {
+      this.checkAuthentication(this.props);
     }
 
-    const mapStateToProps = state => ({
-      user: state.user
-    });
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.location !== this.props.location) {
+        this.checkAuthentication(nextProps);
+      }
+    }
 
-    const connected = connect(mapStateToProps)(Authenticated);
+    checkAuthentication(params) {
+      const { history, user } = params;
+      if (user !== null && user.token !== null) {
+        history.replace({ pathname: "/polls" });
+      }
+    }
 
-    return withRouter(connected);
-}
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  }
+
+  const mapStateToProps = state => ({
+    user: state.user
+  });
+
+  const connected = connect(mapStateToProps)(Authenticated);
+
+  return withRouter(connected);
+};
 
 export default AuthenticationHOC;

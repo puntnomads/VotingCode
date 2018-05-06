@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import Autocomplete from "react-autocomplete";
 import { userPollsGet, userPollDelete } from "./actions";
 
 class UserPolls extends React.Component {
@@ -76,7 +75,7 @@ class UserPolls extends React.Component {
               className="thumbnails"
             >
               <div className="displaytags">
-                {this.state.tags.map((tag, i) =>
+                {this.state.tags.map((tag, i) => (
                   <a
                     className="tag"
                     key={i}
@@ -85,7 +84,7 @@ class UserPolls extends React.Component {
                   >
                     {tag} <Glyphicon glyph="remove" />
                   </a>
-                )}
+                ))}
               </div>
               <div className="taginput">
                 <input
@@ -97,52 +96,51 @@ class UserPolls extends React.Component {
               </div>
               <datalist id="data">
                 <select>
-                  {this.state.alltags.map((item, i) =>
+                  {this.state.alltags.map((item, i) => (
                     <option key={i} value={item}>
                       {item}
                     </option>
-                  )}
+                  ))}
                 </select>
               </datalist>
-              {polls && polls.length < 1 &&
-                <Thumbnail className="nothumbnail">
-                  <Grid>
-                    <Row>
-                      <Col xs={7} md={4}>
-                        <p>No polls yet. Create a first one!</p>
-                      </Col>
-                      <Col xs={2} md={2}>
-                        <LinkContainer to="/newpoll">
-                          <Glyphicon glyph="plus-sign" />
-                        </LinkContainer>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </Thumbnail>}
-              {polls && polls.map((poll, i) =>
-                <Thumbnail className="thumbnail" key={i}>
-                  <Grid>
-                    <Row>
-                      <Link key={i} to={"/poll/" + poll._id}>
+              {polls &&
+                polls.length < 1 && (
+                  <Thumbnail className="nothumbnail">
+                    <Grid>
+                      <Row>
                         <Col xs={7} md={4}>
-                          <h3>
-                            {poll.title}
-                          </h3>
-                          <p>
-                            created by {poll.name}
-                          </p>
+                          <p>No polls yet. Create a first one!</p>
                         </Col>
-                      </Link>
-                      <Col xs={2} md={2} className="trash">
-                        <Glyphicon
-                          glyph="trash"
-                          onClick={() => this.deleteUserPoll(poll)}
-                        />
-                      </Col>
-                    </Row>
-                  </Grid>
-                </Thumbnail>
-              )}
+                        <Col xs={2} md={2}>
+                          <LinkContainer to="/newpoll">
+                            <Glyphicon glyph="plus-sign" />
+                          </LinkContainer>
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </Thumbnail>
+                )}
+              {polls &&
+                polls.map((poll, i) => (
+                  <Thumbnail className="thumbnail" key={i}>
+                    <Grid>
+                      <Row>
+                        <Link key={i} to={"/poll/" + poll._id}>
+                          <Col xs={7} md={4}>
+                            <h3>{poll.title}</h3>
+                            <p>created by {poll.name}</p>
+                          </Col>
+                        </Link>
+                        <Col xs={2} md={2} className="trash">
+                          <Glyphicon
+                            glyph="trash"
+                            onClick={() => this.deleteUserPoll(poll)}
+                          />
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </Thumbnail>
+                ))}
             </Col>
           </Row>
         </Grid>

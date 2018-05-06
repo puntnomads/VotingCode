@@ -3,7 +3,6 @@ import history from "../../history";
 import axios from "axios";
 import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from "./constants";
 import { setUser } from "../User/actions";
-import { USER_UNSET } from "../User/constants";
 
 const loginUrl = "http://localhost:3001/api/auth/login";
 
@@ -19,17 +18,12 @@ function loginApi(values) {
     });
 }
 
-// function* logout () {
-// yield put(unsetUser());
-// history.push('/login');
-// }
-
 function* loginFlow(values) {
   try {
     const response = yield call(loginApi, values);
     yield put(setUser(response));
     yield put({ type: LOGIN_SUCCESS });
-    history.push("/polls");
+    history.push("/userpolls");
   } catch (error) {
     yield put({ type: LOGIN_ERROR, error });
   }
