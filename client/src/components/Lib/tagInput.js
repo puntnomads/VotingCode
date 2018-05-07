@@ -4,8 +4,7 @@ import tags from "../Lib/tags";
 
 class tagInput extends Component {
   state = {
-    value: "",
-    alltags: tags
+    value: ""
   };
   render() {
     const { addTag } = this.props;
