@@ -22,4 +22,8 @@ module.exports = function(app) {
   apiRoutes.get("/polls/:id", ApiController.getAPoll);
   apiRoutes.put("/polls/:id", ApiController.updateAPoll);
   apiRoutes.delete("/polls/:id", requireAuth, ApiController.deleteAPoll);
+
+  app.get("*", function(req, res) {
+    res.sendFile(path.resolve(__dirname + "client/build/index.html"));
+  });
 };
