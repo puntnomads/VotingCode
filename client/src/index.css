@@ -128,17 +128,3 @@ input::-webkit-calendar-picker-indicator {
 .trash {
   margin: 1em;
 }
-
-.auth-messages {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.auth-messages ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.auth-messages a {
-  font-size: inherit;
-}

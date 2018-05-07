@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { Grid, Row, Col, Button } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import Messages from "../Notifications/Messages";
-import Errors from "../Notifications/Errors";
 import loginRequest from "./actions";
 import Input from "../Lib/Input";
 
@@ -22,11 +19,7 @@ class Login extends Component {
   };
 
   render() {
-    const {
-      handleSubmit,
-      invalid,
-      login: { requesting, successful, messages, errors }
-    } = this.props;
+    const { handleSubmit, invalid } = this.props;
 
     return (
       <Grid>
@@ -57,24 +50,6 @@ class Login extends Component {
                   Login
                 </Button>
               </form>
-              <div className="auth-messages">
-                {!requesting &&
-                  !!errors.length && (
-                    <Errors
-                      message="Failure to login due to:"
-                      errors={errors}
-                    />
-                  )}
-                {!requesting &&
-                  !!messages.length && <Messages messages={messages} />}
-                {requesting && <div>Logging in...</div>}
-                {!requesting &&
-                  !successful && (
-                    <LinkContainer to="/register">
-                      <a>Need to register? Click Here »</a>
-                    </LinkContainer>
-                  )}
-              </div>
             </div>
           </Col>
         </Row>

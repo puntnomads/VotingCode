@@ -10,8 +10,7 @@ class Input extends Component {
       controlId,
       bsSize,
       type,
-      meta: { touched },
-      ...props
+      meta: { touched }
     } = this.props;
     const validationState =
       (touched && (input.value.length === 0 && "error")) || null;

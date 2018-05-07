@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { reduxForm, Field, change, formValueSelector } from "redux-form";
 import { Grid, Row, Col, Button, FormControl } from "react-bootstrap";
 import { Chart } from "react-google-charts";
-import Messages from "../Notifications/Messages";
-import Errors from "../Notifications/Errors";
 import { pollGet, pollUpdate } from "./actions";
 import simpleInput from "../Lib/simpleInput";
 
@@ -48,7 +46,7 @@ class Poll extends Component {
       newOption,
       selectedOption,
       handleSubmit,
-      poll: { requesting, messages, errors, poll }
+      poll: { poll }
     } = this.props;
     const title = poll.title;
     const initialData = [["Title", "Option"]];

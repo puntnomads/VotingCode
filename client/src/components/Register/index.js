@@ -1,20 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
-import {
-  Grid,
-  Row,
-  Col,
-  Button,
-  FormGroup,
-  FormControl,
-  ControlLabel
-} from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import Messages from "../Notifications/Messages";
-import Errors from "../Notifications/Errors";
+import { Grid, Row, Col, Button } from "react-bootstrap";
 import registerRequest from "./actions";
+import Input from "../Lib/Input";
 
 const nameRequired = value => (value ? undefined : "Name Required");
 const emailRequired = value =>
@@ -23,61 +12,14 @@ const emailRequired = value =>
     : undefined;
 const passwordRequired = value => (value ? undefined : "Password Required");
 
-class Input extends React.Component {
-  render() {
-    const {
-      input,
-      label,
-      controlId,
-      bsSize,
-      type,
-      meta: { touched },
-      ...props
-    } = this.props;
-
-    const validationState =
-      (touched && (input.value.length === 0 && "error")) || null;
-    return (
-      <FormGroup
-        controlId={controlId}
-        bsSize={bsSize}
-        validationState={validationState}
-      >
-        <ControlLabel>
-          {label}
-        </ControlLabel>
-        <FormControl {...input} type={type} {...props} />
-      </FormGroup>
-    );
-  }
-}
-
-class Register extends React.Component {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    invalid: PropTypes.bool.isRequired,
-    registerRequest: PropTypes.func.isRequired,
-    register: PropTypes.shape({
-      requesting: PropTypes.bool,
-      successful: PropTypes.bool,
-      messages: PropTypes.array,
-      errors: PropTypes.array
-    }).isRequired,
-    reset: PropTypes.func.isRequired,
-  };
-
+class Register extends Component {
   submit = values => {
     const { reset } = this.props;
     this.props.registerRequest(values);
     reset();
   };
-
   render() {
-    const {
-      handleSubmit,
-      invalid,
-      register: { requesting, successful, messages, errors }
-    } = this.props;
+    const { handleSubmit, invalid } = this.props;
 
     return (
       <Grid>
@@ -117,26 +59,6 @@ class Register extends React.Component {
                   Register
                 </Button>
               </form>
-              <div className="auth-messages">
-                {!requesting &&
-                  !!errors.length &&
-                  <Errors
-                    message="Failure to signup due to:"
-                    errors={errors}
-                  />}
-                {!requesting &&
-                  !!messages.length &&
-                  <Messages messages={messages} />}
-                {!requesting &&
-                  successful &&
-                  <div>
-                    Registration Successful!{" "}
-                    <LinkContainer to="/login"><a>Click here to Login »</a></LinkContainer>
-                  </div>}
-                {!requesting &&
-                  !successful &&
-                  <LinkContainer to="/login"><a>Already a Member? Login Here »</a></LinkContainer>}
-              </div>
             </div>
           </Col>
         </Row>

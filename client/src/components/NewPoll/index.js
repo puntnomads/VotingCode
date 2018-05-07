@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import {
   reduxForm,
   FieldArray,
@@ -10,8 +9,6 @@ import {
 import { connect } from "react-redux";
 import { Grid, Row, Col, Button, Glyphicon } from "react-bootstrap";
 import styled from "styled-components";
-import Messages from "../Notifications/Messages";
-import Errors from "../Notifications/Errors";
 import { pollCreate, pollCreateReset } from "./actions";
 import Input from "../Lib/Input";
 import renderOptions from "../Lib/renderOptions";
@@ -77,7 +74,7 @@ class NewPoll extends Component {
       tags,
       handleSubmit,
       invalid,
-      newpoll: { requesting, successful, messages, errors, newpoll }
+      newpoll: { newpoll }
     } = this.props;
     const poll_ID = newpoll._id;
     return (
