@@ -1,24 +1,23 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import axios from 'axios';
-import {
-  POLLS_GETTING
-} from "./constants";
+import { call, put, takeLatest } from "redux-saga/effects";
+import axios from "axios";
+import { POLLS_GETTING } from "./constants";
 
 import { pollsGetSuccess, pollsGetError } from "./actions";
 
-const pollsUrl = "http://localhost:3001/api/polls";
+const pollsUrl = "/api/polls";
 
-function getPollsApi () {
-    return axios.get(pollsUrl)
-    .then(function (response) {
+function getPollsApi() {
+  return axios
+    .get(pollsUrl)
+    .then(function(response) {
       return response.data;
     })
-    .catch(function (error) {
+    .catch(function(error) {
       throw error;
     });
 }
 
-function* getPollsFlow () {
+function* getPollsFlow() {
   try {
     const response = yield call(getPollsApi);
     yield put(pollsGetSuccess(response));
@@ -27,7 +26,7 @@ function* getPollsFlow () {
   }
 }
 
-function* getPollsWatcher () {
+function* getPollsWatcher() {
   yield takeLatest(POLLS_GETTING, getPollsFlow);
 }
 

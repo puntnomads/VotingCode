@@ -9,12 +9,12 @@ import {
   userPollDeleteError
 } from "./actions";
 
-const userPollsUrl = "http://localhost:3001/api/userpolls";
-const deleteUserPollsUrl = "http://localhost:3001/api/polls";
+const userPollsUrl = "/api/userpolls";
+const deleteUserPollsUrl = "/api/polls";
 
 function getUserPollsApi(name, token) {
   return axios
-    .get(`${userPollsUrl}/${name}`, { headers : { Authorization: token } })
+    .get(`${userPollsUrl}/${name}`, { headers: { Authorization: token } })
     .then(function(response) {
       return response.data;
     })
@@ -25,7 +25,9 @@ function getUserPollsApi(name, token) {
 
 function deleteUserPollApi(pollID, token) {
   return axios
-    .delete(`${deleteUserPollsUrl}/${pollID}`, { headers : { Authorization: token } })
+    .delete(`${deleteUserPollsUrl}/${pollID}`, {
+      headers: { Authorization: token }
+    })
     .then(function(response) {
       return response.data;
     })
@@ -57,8 +59,8 @@ function* deleteUserPollFlow(action) {
 function* getUserPollsWatcher() {
   yield [
     takeLatest(USER_POLLS_GETTING, getUserPollsFlow),
-    takeLatest(USER_POLL_DELETING, deleteUserPollFlow),
-  ]
+    takeLatest(USER_POLL_DELETING, deleteUserPollFlow)
+  ];
 }
 
 export default getUserPollsWatcher;

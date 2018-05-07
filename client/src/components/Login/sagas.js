@@ -4,7 +4,7 @@ import axios from "axios";
 import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from "./constants";
 import { setUser } from "../User/actions";
 
-const loginUrl = "http://localhost:3001/api/auth/login";
+const loginUrl = "/api/auth/login";
 
 function loginApi(values) {
   return axios

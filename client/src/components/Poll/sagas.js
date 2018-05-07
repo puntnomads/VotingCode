@@ -9,7 +9,7 @@ import {
   pollUpdateError
 } from "./actions";
 
-const PollUrl = "http://localhost:3001/api/polls";
+const PollUrl = "/api/polls";
 
 function getPollApi(id) {
   return axios
