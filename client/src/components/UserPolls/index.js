@@ -5,11 +5,12 @@ import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { toast } from "react-toastify";
 import { userPollsGet, userPollDelete } from "./actions";
+import alltags from "../Lib/tags";
 
 class UserPolls extends Component {
   toastId = null;
   state = {
-    alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
+    alltags: alltags,
     tags: []
   };
   componentDidMount() {
