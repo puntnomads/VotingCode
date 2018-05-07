@@ -1,6 +1,7 @@
 const AuthenticationController = require("./controllers/authentication"),
   ApiController = require("./controllers/api"),
   express = require("express"),
+  path = require("path"),
   passportService = require("./config/passport"),
   passport = require("passport");
 
@@ -24,6 +25,6 @@ module.exports = function(app) {
   apiRoutes.delete("/polls/:id", requireAuth, ApiController.deleteAPoll);
 
   app.get("*", function(req, res) {
-    res.sendFile(path.resolve(__dirname + "client/build/index.html"));
+    res.sendFile(path.resolve(__dirname + "/client/build/index.html"));
   });
 };
