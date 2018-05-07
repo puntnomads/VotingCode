@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { checkUser } from "./Lib/checkAuth";
+import { checkUser } from "./Lib/checkUser";
 import { connect } from "react-redux";
 
 const AuthorizationHOC = WrappedComponent => {
