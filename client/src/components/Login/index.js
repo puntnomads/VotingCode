@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { Grid, Row, Col, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
 import loginRequest from "./actions";
 import Input from "../Lib/Input";
 
@@ -12,15 +13,24 @@ const emailRequired = value =>
 const passwordRequired = value => (value ? undefined : "Password Required");
 
 class Login extends Component {
+  toastId = null;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!this.props.login.requesting && !!this.props.login.errors.length) {
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.error(
+          "Failed to login in. Please insure that you are registered and your details are correct.",
+          { autoClose: 5000 }
+        );
+      }
+    }
+  }
   submit = values => {
     const { reset } = this.props;
     this.props.loginRequest(values);
     reset();
   };
-
   render() {
     const { handleSubmit, invalid } = this.props;
-
     return (
       <Grid>
         <Row>

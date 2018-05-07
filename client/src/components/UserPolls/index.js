@@ -1,23 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { toast } from "react-toastify";
 import { userPollsGet, userPollDelete } from "./actions";
 
-class UserPolls extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
-      tags: []
-    };
-  }
-
+class UserPolls extends Component {
+  toastId = null;
+  state = {
+    alltags: ["React", "Redux", "NodeJS", "Express", "MongoDB"],
+    tags: []
+  };
   componentDidMount() {
     this.props.userPollsGet(this.props.user.name, this.props.user.token);
   }
-
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.userpolls.deletedPoll !== this.props.userpolls.deletedPoll) {
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.info("Poll has been successfully deleted.", {
+          autoClose: 5000
+        });
+      }
+    }
+  }
   addTag = event => {
     const tagsArray = this.state.tags ? this.state.tags : [];
     const value = event.target.value;
@@ -32,19 +38,16 @@ class UserPolls extends React.Component {
       });
     }
   };
-
   deleteTag = tag => {
     const newtags = this.state.tags.filter(item => item !== tag);
     this.setState({
       tags: newtags
     });
   };
-
   deleteUserPoll = userPoll => {
     this.props.userPollDelete(userPoll._id, this.props.user.token);
     this.props.userPollsGet(this.props.user.name, this.props.user.token);
   };
-
   render() {
     let polls = this.props.userpolls.userPolls;
     const filteredArray = [];

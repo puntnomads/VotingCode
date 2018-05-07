@@ -3,15 +3,26 @@ import { connect } from "react-redux";
 import { reduxForm, Field, change, formValueSelector } from "redux-form";
 import { Grid, Row, Col, Button, FormControl } from "react-bootstrap";
 import { Chart } from "react-google-charts";
+import { toast } from "react-toastify";
 import { pollGet, pollUpdate } from "./actions";
 import simpleInput from "../Lib/simpleInput";
 
 class Poll extends Component {
+  toastId = null;
   componentDidMount() {
     const {
       match: { params }
     } = this.props;
     this.props.pollGet(params.poll_id);
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.poll.updated !== this.props.poll.updated) {
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.info("You have successfully voted.", {
+          autoClose: 5000
+        });
+      }
+    }
   }
   selectOption = event => {
     const value = event.target.value;
