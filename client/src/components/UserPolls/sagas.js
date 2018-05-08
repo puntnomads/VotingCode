@@ -1,5 +1,6 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 import { USER_POLLS_GETTING, USER_POLL_DELETING } from "./constants";
 
 import {
@@ -39,9 +40,12 @@ function deleteUserPollApi(pollID, token) {
 function* getUserPollsFlow(action) {
   try {
     const { name, token } = action;
+    yield put(showLoading());
     const response = yield call(getUserPollsApi, name, token);
+    yield put(hideLoading());
     yield put(userPollsGetSuccess(response));
   } catch (error) {
+    yield put(hideLoading());
     yield put(userPollsGetError(error));
   }
 }
@@ -49,17 +53,20 @@ function* getUserPollsFlow(action) {
 function* deleteUserPollFlow(action) {
   try {
     const { pollID, token } = action;
+    yield put(showLoading());
     const response = yield call(deleteUserPollApi, pollID, token);
+    yield put(hideLoading());
     yield put(userPollDeleteSuccess(response));
   } catch (error) {
+    yield put(hideLoading());
     yield put(userPollDeleteError(error));
   }
 }
 
 function* getUserPollsWatcher() {
   yield [
-    takeLatest(USER_POLLS_GETTING, getUserPollsFlow),
-    takeLatest(USER_POLL_DELETING, deleteUserPollFlow)
+    takeEvery(USER_POLLS_GETTING, getUserPollsFlow),
+    takeEvery(USER_POLL_DELETING, deleteUserPollFlow)
   ];
 }
 

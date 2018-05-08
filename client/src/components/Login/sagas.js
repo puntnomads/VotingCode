@@ -1,6 +1,7 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import history from "../../history";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 import axios from "axios";
+import history from "../../history";
 import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from "./constants";
 import { setUser } from "../User/actions";
 
@@ -19,17 +20,20 @@ function loginApi(values) {
 
 function* loginFlow(values) {
   try {
+    yield put(showLoading());
     const response = yield call(loginApi, values);
+    yield put(hideLoading());
     yield put(setUser(response));
     yield put({ type: LOGIN_SUCCESS });
     history.push("/userpolls");
   } catch (error) {
+    yield put(hideLoading());
     yield put({ type: LOGIN_ERROR, error });
   }
 }
 
 function* loginWatcher() {
-  yield takeLatest(LOGIN_REQUESTING, loginFlow);
+  yield takeEvery(LOGIN_REQUESTING, loginFlow);
 }
 
 export default loginWatcher;

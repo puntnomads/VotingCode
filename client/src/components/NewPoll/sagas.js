@@ -1,5 +1,6 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 import { POLL_CREATING } from "./constants";
 
 import { pollCreateSuccess, pollCreateError } from "./actions";
@@ -24,6 +25,7 @@ function createPollApi(name, options, tags, title, token) {
 function* createPollFlow(action) {
   try {
     const { name, options, tags, title, token } = action;
+    yield put(showLoading());
     const response = yield call(
       createPollApi,
       name,
@@ -32,14 +34,16 @@ function* createPollFlow(action) {
       title,
       token
     );
+    yield put(hideLoading());
     yield put(pollCreateSuccess(response.data));
   } catch (error) {
+    yield put(hideLoading());
     yield put(pollCreateError(error));
   }
 }
 
 function* createPollWatcher() {
-  yield takeLatest(POLL_CREATING, createPollFlow);
+  yield takeEvery(POLL_CREATING, createPollFlow);
 }
 
 export default createPollWatcher;

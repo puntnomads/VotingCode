@@ -1,5 +1,6 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 import {
   REGISTER_REQUESTING,
   REGISTER_SUCCESS,
@@ -22,15 +23,18 @@ function signupApi(name, email, password) {
 function* registerFlow(action) {
   try {
     const { name, email, password } = action;
+    yield put(showLoading());
     const response = yield call(signupApi, name, email, password);
+    yield put(hideLoading());
     yield put({ type: REGISTER_SUCCESS, response });
   } catch (error) {
+    yield put(hideLoading());
     yield put({ type: REGISTER_ERROR, error });
   }
 }
 
 function* registerWatcher() {
-  yield takeLatest(REGISTER_REQUESTING, registerFlow);
+  yield takeEvery(REGISTER_REQUESTING, registerFlow);
 }
 
 export default registerWatcher;

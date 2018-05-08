@@ -1,5 +1,6 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
 import { POLL_GETTING, POLL_UPDATING } from "./constants";
 
 import {
@@ -36,9 +37,12 @@ function updatePollApi(token, options, id) {
 function* getPollFlow(action) {
   try {
     const { id } = action;
+    yield put(showLoading());
     const response = yield call(getPollApi, id);
+    yield put(hideLoading());
     yield put(pollGetSuccess(response.data[0]));
   } catch (error) {
+    yield put(hideLoading());
     yield put(pollGetError(error));
   }
 }
@@ -46,17 +50,20 @@ function* getPollFlow(action) {
 function* updatePollFlow(action) {
   try {
     const { token, options, id } = action;
+    yield put(showLoading());
     const response = yield call(updatePollApi, token, options, id);
+    yield put(hideLoading());
     yield put(pollUpdateSuccess(response.data));
   } catch (error) {
+    yield put(hideLoading());
     yield put(pollUpdateError(error));
   }
 }
 
 function* getPollWatcher() {
   yield [
-    takeLatest(POLL_GETTING, getPollFlow),
-    takeLatest(POLL_UPDATING, updatePollFlow)
+    takeEvery(POLL_GETTING, getPollFlow),
+    takeEvery(POLL_UPDATING, updatePollFlow)
   ];
 }
 

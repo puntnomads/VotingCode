@@ -6,6 +6,7 @@ import createSagaMiddleware from "redux-saga";
 import { Router } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingBar from "react-redux-loading-bar";
 import history from "./history";
 import NavBar from "./components/NavBar";
 import Main from "./components/Main";
@@ -35,6 +36,15 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <div>
+        <LoadingBar
+          showFastActions
+          style={{
+            backgroundColor: "red",
+            height: "5px",
+            position: "absolute",
+            zIndex: "1"
+          }}
+        />
         <ToastContainer />
         <NavBar />
         <Main />
