@@ -13,9 +13,9 @@ import {
 const userPollsUrl = "/api/userpolls";
 const deleteUserPollsUrl = "/api/polls";
 
-function getUserPollsApi(name, token) {
+function getUserPollsApi(name) {
   return axios
-    .get(`${userPollsUrl}/${name}`, { headers: { Authorization: token } })
+    .get(`${userPollsUrl}/${name}`)
     .then(function(response) {
       return response.data;
     })
@@ -24,11 +24,9 @@ function getUserPollsApi(name, token) {
     });
 }
 
-function deleteUserPollApi(pollID, token) {
+function deleteUserPollApi(pollID) {
   return axios
-    .delete(`${deleteUserPollsUrl}/${pollID}`, {
-      headers: { Authorization: token }
-    })
+    .delete(`${deleteUserPollsUrl}/${pollID}`)
     .then(function(response) {
       return response.data;
     })
@@ -39,9 +37,9 @@ function deleteUserPollApi(pollID, token) {
 
 function* getUserPollsFlow(action) {
   try {
-    const { name, token } = action;
+    const { name } = action;
     yield put(showLoading());
-    const response = yield call(getUserPollsApi, name, token);
+    const response = yield call(getUserPollsApi, name);
     yield put(hideLoading());
     yield put(userPollsGetSuccess(response));
   } catch (error) {
@@ -52,9 +50,9 @@ function* getUserPollsFlow(action) {
 
 function* deleteUserPollFlow(action) {
   try {
-    const { pollID, token } = action;
+    const { pollID } = action;
     yield put(showLoading());
-    const response = yield call(deleteUserPollApi, pollID, token);
+    const response = yield call(deleteUserPollApi, pollID);
     yield put(hideLoading());
     yield put(userPollDeleteSuccess(response));
   } catch (error) {

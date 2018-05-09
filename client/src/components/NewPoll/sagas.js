@@ -7,13 +7,9 @@ import { pollCreateSuccess, pollCreateError } from "./actions";
 
 const createPollUrl = "/api/polls";
 
-function createPollApi(name, options, tags, title, token) {
+function createPollApi(name, options, tags, title) {
   return axios
-    .post(
-      createPollUrl,
-      { name, options, tags, title },
-      { headers: { Authorization: token } }
-    )
+    .post(createPollUrl, { name, options, tags, title })
     .then(function(response) {
       return response;
     })

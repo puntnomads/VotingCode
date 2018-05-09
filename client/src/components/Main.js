@@ -11,11 +11,13 @@ import Register from "./Register";
 import NewPoll from "./NewPoll";
 import Profile from "./Profile";
 import Poll from "./Poll";
+import axiosInterceptor from "./Lib/axiosInterceptor";
 
 export default class Main extends React.Component {
   render() {
     return (
       <div>
+        <Route path="/" component={axiosInterceptor} />
         <Switch>
           <Route exact path="/userpolls" component={UserPolls} />
           <Route exact path="/polls" component={Polls} />

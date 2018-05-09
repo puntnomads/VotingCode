@@ -5,10 +5,11 @@ import history from "../../history";
 import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from "./constants";
 import { setUser } from "../User/actions";
 
+const instance = axios.create();
 const loginUrl = "/api/auth/login";
 
 function loginApi(values) {
-  return axios
+  return instance
     .post(loginUrl, values)
     .then(function(response) {
       return response.data;

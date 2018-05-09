@@ -7,46 +7,47 @@ import {
   USER_POLL_DELETING_ERROR
 } from "./constants";
 
-export const userPollsGet = function userPollsGet (name, token) {
+export const userPollsGet = function userPollsGet(name) {
   return {
     type: USER_POLLS_GETTING,
-    name,
-    token
-  }
-}
+    name
+  };
+};
 
-export const userPollsGetSuccess = function userPollsGetSuccess (userPolls) {
+export const userPollsGetSuccess = function userPollsGetSuccess(userPolls) {
   return {
     type: USER_POLLS_GETTING_SUCCESS,
-    userPolls,
-  }
-}
+    userPolls
+  };
+};
 
-export const userPollsGetError = function userPollsGetError (error) {
+export const userPollsGetError = function userPollsGetError(error) {
   return {
     type: USER_POLLS_GETTING_ERROR,
-    error,
-  }
-}
+    error
+  };
+};
 
-export const userPollDelete = function userPollDelete (pollID, token) {
+export const userPollDelete = function userPollDelete(pollID, token) {
   return {
     type: USER_POLL_DELETING,
     pollID,
     token
-  }
-}
+  };
+};
 
-export const userPollDeleteSuccess = function userPollDeleteSuccess (deletedPoll) {
+export const userPollDeleteSuccess = function userPollDeleteSuccess(
+  deletedPoll
+) {
   return {
     type: USER_POLL_DELETING_SUCCESS,
-    deletedPoll,
-  }
-}
+    deletedPoll
+  };
+};
 
-export const userPollDeleteError = function userPollDeleteError (error) {
+export const userPollDeleteError = function userPollDeleteError(error) {
   return {
     type: USER_POLL_DELETING_ERROR,
-    error,
-  }
-}
+    error
+  };
+};

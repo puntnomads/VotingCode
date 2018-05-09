@@ -7,46 +7,45 @@ import {
   POLL_UPDATING_ERROR
 } from "./constants";
 
-export const pollGet = function pollGet (id) {
+export const pollGet = function pollGet(id) {
   return {
     type: POLL_GETTING,
     id
-  }
-}
+  };
+};
 
-export const pollGetSuccess = function pollGetSuccess (poll) {
+export const pollGetSuccess = function pollGetSuccess(poll) {
   return {
     type: POLL_GETTING_SUCCESS,
-    poll,
-  }
-}
+    poll
+  };
+};
 
-export const pollGetError = function pollGetError (error) {
+export const pollGetError = function pollGetError(error) {
   return {
     type: POLL_GETTING_ERROR,
-    error,
-  }
-}
+    error
+  };
+};
 
-export const pollUpdate = function pollUpdate ({ token, options, id }) {
+export const pollUpdate = function pollUpdate({ options, id }) {
   return {
     type: POLL_UPDATING,
-    token,
     options,
     id
-  }
-}
+  };
+};
 
-export const pollUpdateSuccess = function pollUpdateSuccess (poll) {
+export const pollUpdateSuccess = function pollUpdateSuccess(poll) {
   return {
     type: POLL_UPDATING_SUCCESS,
-    poll,
-  }
-}
+    poll
+  };
+};
 
-export const pollUpdateError = function pollUpdateError (error) {
+export const pollUpdateError = function pollUpdateError(error) {
   return {
     type: POLL_UPDATING_ERROR,
-    error,
-  }
-}
+    error
+  };
+};

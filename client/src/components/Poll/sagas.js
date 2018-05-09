@@ -23,9 +23,9 @@ function getPollApi(id) {
     });
 }
 
-function updatePollApi(token, options, id) {
+function updatePollApi(options, id) {
   return axios
-    .put(`${PollUrl}/${id}`, { options }, { headers: { Authorization: token } })
+    .put(`${PollUrl}/${id}`, { options })
     .then(function(response) {
       return response;
     })
@@ -49,9 +49,9 @@ function* getPollFlow(action) {
 
 function* updatePollFlow(action) {
   try {
-    const { token, options, id } = action;
+    const { options, id } = action;
     yield put(showLoading());
-    const response = yield call(updatePollApi, token, options, id);
+    const response = yield call(updatePollApi, options, id);
     yield put(hideLoading());
     yield put(pollUpdateSuccess(response.data));
   } catch (error) {
