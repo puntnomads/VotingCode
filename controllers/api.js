@@ -1,66 +1,34 @@
 const Poll = require("../models/poll"),
   config = require("../config/main");
 
-exports.getPolls = function(req, res, next) {
-  Poll.find({}, function(err, polls) {
-    if (err) throw err;
-    res.status(201).json(polls);
-  });
+exports.getPolls = async (req, res, next) => {
+  const polls = await Poll.find({});
+  res.json({ polls: polls });
 };
 
-exports.getUserPolls = function(req, res, next) {
-  const name = req.params.name;
-  Poll.find({ name: name }, function(err, polls) {
-    if (err) throw err;
-    res.status(201).json(polls);
-  });
+exports.getUserPolls = async (req, res, next) => {
+  const userPolls = await Poll.find({ name: req.params.name });
+  res.json({ userPolls: userPolls });
 };
 
-exports.createAPoll = function(req, res, next) {
-  console.log(req.body);
-  const name = req.body.name;
-  const title = req.body.title;
-  const tags = req.body.tags;
-  const options = req.body.options;
-  let poll = new Poll({
-    name: name,
-    title: title,
-    tags: tags,
-    options: options
-  });
-  poll.save(function(err, poll) {
-    if (err) {
-      return next(err);
-    }
-    res.status(201).json(poll);
-  });
+exports.createAPoll = async (req, res, next) => {
+  const poll = new Poll(req.body);
+  let newPoll = await poll.save();
+  res.json({ poll: newPoll });
 };
 
-exports.getAPoll = function(req, res, next) {
+exports.getAPoll = async (req, res, next) => {
   const id = req.params.id;
-  Poll.find({ _id: id }, function(err, poll) {
-    if (err) throw err;
-    res.status(201).json(poll);
-  });
+  const poll = await Poll.findOne({ _id: id });
+  res.json({ poll: poll });
 };
 
-exports.updateAPoll = function(req, res, next) {
-  const id = req.params.id;
-  const options = req.body.options;
-  Poll.findOne({ _id: id }, function(err, poll) {
-    if (err) throw err;
-    poll.options = options;
-    poll.save(function(err, poll) {
-      if (err) throw err;
-      res.status(201).json(poll);
-    });
-  });
+exports.updateAPoll = async (req, res, next) => {
+  const poll = await Poll.findOneAndUpdate({ _id: req.params.id }, req.body);
+  res.json({ poll: poll });
 };
 
-exports.deleteAPoll = function(req, res, next) {
-  const id = req.params.id;
-  Poll.findOneAndRemove({ _id: id }, function(err, poll) {
-    if (err) throw err;
-    res.status(201).json(poll);
-  });
+exports.deleteAPoll = async (req, res, next) => {
+  const poll = await Poll.findOneAndRemove({ _id: req.params.id });
+  res.json({ poll: poll });
 };

@@ -16,7 +16,7 @@ function getPollApi(id) {
   return axios
     .get(`${PollUrl}/${id}`)
     .then(function(response) {
-      return response;
+      return response.data.poll;
     })
     .catch(function(error) {
       throw error;
@@ -27,7 +27,7 @@ function updatePollApi(options, id) {
   return axios
     .put(`${PollUrl}/${id}`, { options })
     .then(function(response) {
-      return response;
+      return response.data.poll;
     })
     .catch(function(error) {
       throw error;
@@ -40,7 +40,8 @@ function* getPollFlow(action) {
     yield put(showLoading());
     const response = yield call(getPollApi, id);
     yield put(hideLoading());
-    yield put(pollGetSuccess(response.data[0]));
+    console.log(response);
+    yield put(pollGetSuccess(response));
   } catch (error) {
     yield put(hideLoading());
     yield put(pollGetError(error));
@@ -53,7 +54,7 @@ function* updatePollFlow(action) {
     yield put(showLoading());
     const response = yield call(updatePollApi, options, id);
     yield put(hideLoading());
-    yield put(pollUpdateSuccess(response.data));
+    yield put(pollUpdateSuccess(response));
   } catch (error) {
     yield put(hideLoading());
     yield put(pollUpdateError(error));

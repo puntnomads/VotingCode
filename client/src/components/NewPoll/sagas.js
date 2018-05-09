@@ -11,7 +11,7 @@ function createPollApi(name, options, tags, title) {
   return axios
     .post(createPollUrl, { name, options, tags, title })
     .then(function(response) {
-      return response;
+      return response.data.poll;
     })
     .catch(function(error) {
       throw error;
@@ -31,7 +31,7 @@ function* createPollFlow(action) {
       token
     );
     yield put(hideLoading());
-    yield put(pollCreateSuccess(response.data));
+    yield put(pollCreateSuccess(response));
   } catch (error) {
     yield put(hideLoading());
     yield put(pollCreateError(error));
