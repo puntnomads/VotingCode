@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   Grid,
   Row,
@@ -9,23 +9,19 @@ import {
   ControlLabel
 } from "react-bootstrap";
 
-export default class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      oldpassword: "",
-      newpassword: "",
-      name: "Zak",
-      email: "zak@email.com"
-    };
-  }
-
+export default class Profile extends Component {
+  user = JSON.parse(localStorage.getItem("user"));
+  state = {
+    oldpassword: "",
+    newpassword: "",
+    name: this.user.name,
+    email: this.user.email
+  };
   validateForm = () => {
     return (
       this.state.oldpassword.length > 0 && this.state.newpassword.length > 0
     );
   };
-
   handleChange = event => {
     const boolean = event.target.id + "Empty";
     if (event.target.value.length > 0) {
@@ -40,7 +36,6 @@ export default class Profile extends React.Component {
       });
     }
   };
-
   handleBlurred = event => {
     const boolean = event.target.id + "Empty";
     this.setState({
@@ -48,11 +43,9 @@ export default class Profile extends React.Component {
       [boolean]: true
     });
   };
-
   handleSubmit = event => {
     event.preventDefault();
   };
-
   validateState = value => {
     const boolean = value + "Empty";
     if (
@@ -63,7 +56,6 @@ export default class Profile extends React.Component {
       return "error";
     }
   };
-
   render() {
     return (
       <Grid>

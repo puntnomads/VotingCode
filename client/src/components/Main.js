@@ -19,7 +19,7 @@ export default class Main extends React.Component {
       <div>
         <Route path="/" component={axiosInterceptor} />
         <Switch>
-          <Route exact path="/userpolls" component={UserPolls} />
+          <Route exact path="/userpolls" component={Authorized(UserPolls)} />
           <Route exact path="/polls" component={Polls} />
           <Route exact path="/login" component={Authenticated(Login)} />
           <Route exact path="/logout" component={Logout} />

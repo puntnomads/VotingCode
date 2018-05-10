@@ -20,16 +20,9 @@ function createPollApi(name, options, tags, title) {
 
 function* createPollFlow(action) {
   try {
-    const { name, options, tags, title, token } = action;
+    const { name, options, tags, title } = action;
     yield put(showLoading());
-    const response = yield call(
-      createPollApi,
-      name,
-      options,
-      tags,
-      title,
-      token
-    );
+    const response = yield call(createPollApi, name, options, tags, title);
     yield put(hideLoading());
     yield put(pollCreateSuccess(response));
   } catch (error) {

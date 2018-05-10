@@ -4,21 +4,20 @@ import axios from "axios";
 
 class axiosInterceptor extends Component {
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    if (token) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.token) {
       axios.interceptors.request.use(config => {
-        config.headers.Authorization = token;
+        config.headers.Authorization = user.token;
         return config;
       });
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.user.token !== prevProps.user.token) {
-      const token = this.props.user.token;
-      console.log("token", token);
-      localStorage.setItem("token", token);
+      const user = this.props.user;
+      localStorage.setItem("user", JSON.stringify(user));
       axios.interceptors.request.use(config => {
-        config.headers.Authorization = token;
+        config.headers.Authorization = user.token;
         return config;
       });
     }
@@ -35,6 +34,3 @@ const mapStateToProps = state => ({
 const connected = connect(mapStateToProps, {})(axiosInterceptor);
 
 export default connected;
-
-// https://github.com/axios/axios/issues/108
-// https://coursework.vschool.io/react-token-authentication-pt-2/

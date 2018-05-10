@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 class NavBar extends Component {
   render() {
-    const { user } = this.props;
-    const isLoggedIn = user.token ? true : false;
+    const user = JSON.parse(localStorage.getItem("user"));
+    const isLoggedIn = user && user.token ? true : false;
     if (isLoggedIn) {
       return (
         <Navbar inverse collapseOnSelect className="navbar">
@@ -77,10 +76,4 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user
-});
-
-const connected = connect(mapStateToProps, {})(NavBar);
-
-export default connected;
+export default NavBar;

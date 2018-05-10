@@ -29,7 +29,7 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         errors: state.errors.concat([
           {
-            body: action.error.response.data,
+            body: action.error,
             time: new Date()
           }
         ]),

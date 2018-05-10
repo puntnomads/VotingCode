@@ -9,6 +9,7 @@ import simpleInput from "../Lib/simpleInput";
 
 class Poll extends Component {
   toastId = null;
+  user = JSON.parse(localStorage.getItem("user"));
   componentDidMount() {
     const {
       match: { params }
@@ -29,7 +30,6 @@ class Poll extends Component {
     this.props.dispatch(change("poll", "selectedOption", value));
   };
   submit = values => {
-    const token = this.props.user.token;
     const id = this.props.poll.poll._id;
     const newOption = values.newOption ? values.newOption : undefined;
     const selectedOption = values.selectedOption
@@ -49,7 +49,7 @@ class Poll extends Component {
     if (newOption) {
       options.push([newOption, 1]);
     }
-    this.props.pollUpdate({ token: token, options: options, id: id });
+    this.props.pollUpdate({ options: options, id: id });
   };
 
   render() {
@@ -72,7 +72,7 @@ class Poll extends Component {
               <h1>{title}</h1>
               <form onSubmit={handleSubmit(this.submit)}>
                 <Row className="home">
-                  <Col xs={12} md={this.props.user.token ? 5 : 12}>
+                  <Col xs={12} md={this.user.token ? 5 : 12}>
                     <FormControl
                       componentClass="select"
                       disabled={newOption ? "disabled" : ""}
@@ -94,12 +94,12 @@ class Poll extends Component {
                       })}
                     </FormControl>
                   </Col>
-                  {this.props.user.token && (
+                  {this.user.token && (
                     <Col xs={12} md={2}>
                       <p>or vote with</p>
                     </Col>
                   )}
-                  {this.props.user.token && (
+                  {this.user.token && (
                     <Col xs={12} md={5}>
                       <Field
                         name="newOption"
@@ -139,7 +139,6 @@ class Poll extends Component {
 const selector = formValueSelector("poll");
 
 const mapStateToProps = state => ({
-  user: state.user,
   poll: state.poll,
   selectedOption: selector(state, "selectedOption"),
   newOption: selector(state, "newOption")

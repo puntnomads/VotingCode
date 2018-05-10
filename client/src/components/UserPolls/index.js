@@ -9,12 +9,13 @@ import alltags from "../Lib/tags";
 
 class UserPolls extends Component {
   toastId = null;
+  user = JSON.parse(localStorage.getItem("user"));
   state = {
     alltags: alltags,
     tags: []
   };
   componentDidMount() {
-    this.props.userPollsGet(this.props.user.name, this.props.user.token);
+    this.props.userPollsGet(this.user.name);
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.userpolls.deletedPoll !== this.props.userpolls.deletedPoll) {
@@ -23,6 +24,7 @@ class UserPolls extends Component {
           autoClose: 5000
         });
       }
+      this.props.userPollsGet(this.user.name);
     }
   }
   addTag = event => {
@@ -46,8 +48,7 @@ class UserPolls extends Component {
     });
   };
   deleteUserPoll = userPoll => {
-    this.props.userPollDelete(userPoll._id, this.props.user.token);
-    this.props.userPollsGet(this.props.user.name, this.props.user.token);
+    this.props.userPollDelete(userPoll._id);
   };
   render() {
     let polls = this.props.userpolls.userPolls;
@@ -153,8 +154,7 @@ class UserPolls extends Component {
 }
 
 const mapStateToProps = state => ({
-  userpolls: state.userpolls,
-  user: state.user
+  userpolls: state.userpolls
 });
 
 const connected = connect(mapStateToProps, { userPollsGet, userPollDelete })(

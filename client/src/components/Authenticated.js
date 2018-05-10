@@ -1,9 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 
 const AuthenticationHOC = WrappedComponent => {
-  class Authenticated extends React.Component {
+  class Authenticated extends Component {
     componentWillMount() {
       this.checkAuthentication(this.props);
     }
@@ -15,8 +14,9 @@ const AuthenticationHOC = WrappedComponent => {
     }
 
     checkAuthentication(params) {
-      const { history, user } = params;
-      if (user !== null && user.token !== null) {
+      const { history } = params;
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.token) {
         history.replace({ pathname: "/polls" });
       }
     }
@@ -26,13 +26,7 @@ const AuthenticationHOC = WrappedComponent => {
     }
   }
 
-  const mapStateToProps = state => ({
-    user: state.user
-  });
-
-  const connected = connect(mapStateToProps)(Authenticated);
-
-  return withRouter(connected);
+  return withRouter(Authenticated);
 };
 
 export default AuthenticationHOC;

@@ -40,6 +40,7 @@ const LinkContainer = styled.p`
 `;
 
 class NewPoll extends Component {
+  user = JSON.parse(localStorage.getItem("user"));
   componentWillUnmount() {
     if (this.props.newpoll.newpoll._id) {
       this.props.pollCreateReset();
@@ -61,8 +62,7 @@ class NewPoll extends Component {
   };
 
   submit = values => {
-    values["token"] = this.props.user.token;
-    values["name"] = this.props.user.name;
+    values["name"] = this.user.name;
     values.options = values.options.map(function(obj) {
       return [obj, 1];
     });

@@ -17,7 +17,7 @@ function getUserPollsApi(name) {
   return axios
     .get(`${userPollsUrl}/${name}`)
     .then(function(response) {
-      return response.data;
+      return response.data.userPolls;
     })
     .catch(function(error) {
       throw error;

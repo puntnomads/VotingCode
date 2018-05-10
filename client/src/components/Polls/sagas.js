@@ -11,7 +11,7 @@ function getPollsApi() {
   return axios
     .get(pollsUrl)
     .then(function(response) {
-      return response.data;
+      return response.data.polls;
     })
     .catch(function(error) {
       throw error;

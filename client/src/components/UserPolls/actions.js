@@ -28,11 +28,10 @@ export const userPollsGetError = function userPollsGetError(error) {
   };
 };
 
-export const userPollDelete = function userPollDelete(pollID, token) {
+export const userPollDelete = function userPollDelete(pollID) {
   return {
     type: USER_POLL_DELETING,
-    pollID,
-    token
+    pollID
   };
 };
 

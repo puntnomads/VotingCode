@@ -4,7 +4,7 @@ import { applyMiddleware, createStore, compose } from "redux";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { Router } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-redux-loading-bar";
 import history from "./history";

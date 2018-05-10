@@ -9,11 +9,11 @@ const generateToken = user => {
   });
 };
 
-const setUserInfo = request => {
+const setUserInfo = user => {
   return {
-    _id: request._id,
-    name: request.name,
-    email: request.email
+    _id: user._id,
+    name: user.name,
+    email: user.email
   };
 };
 
@@ -23,7 +23,8 @@ exports.login = (req, res, next) => {
     token: "JWT " + generateToken(userInfo),
     ttl: 10080,
     created: new Date().toISOString(),
-    name: userInfo.name
+    name: userInfo.name,
+    email: userInfo.email
   });
 };
 
@@ -31,7 +32,7 @@ exports.register = async (req, res, next) => {
   if (!req.body.name || !req.body.email || !req.body.password) {
     return res.status(422).send({ error: "Please provide all details." });
   }
-  const existingUser = await User.findOne({ email: email });
+  const existingUser = await User.findOne({ email: req.body.email });
   if (existingUser) {
     return res
       .status(422)

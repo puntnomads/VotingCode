@@ -1,10 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { checkUser } from "./Lib/checkUser";
-import { connect } from "react-redux";
 
 const AuthorizationHOC = WrappedComponent => {
-  class Authorized extends React.Component {
+  class Authorized extends Component {
     componentWillMount() {
       this.checkAuthorization(this.props);
     }
@@ -16,11 +15,12 @@ const AuthorizationHOC = WrappedComponent => {
     }
 
     checkAuthorization(params) {
-      const { history, user } = params;
+      const { history } = params;
+      const user = JSON.parse(localStorage.getItem("user"));
       if (checkUser(user)) {
         return null;
       } else {
-        history.replace({ pathname: "/login" });
+        history.replace({ pathname: "/logout" });
       }
     }
 
@@ -29,13 +29,7 @@ const AuthorizationHOC = WrappedComponent => {
     }
   }
 
-  const mapStateToProps = state => ({
-    user: state.user
-  });
-
-  const connected = connect(mapStateToProps)(Authorized);
-
-  return withRouter(connected);
+  return withRouter(Authorized);
 };
 
 export default AuthorizationHOC;

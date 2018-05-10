@@ -40,7 +40,6 @@ function* getPollFlow(action) {
     yield put(showLoading());
     const response = yield call(getPollApi, id);
     yield put(hideLoading());
-    console.log(response);
     yield put(pollGetSuccess(response));
   } catch (error) {
     yield put(hideLoading());

@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { unsetUser } from "./User/actions";
 import history from "../history";
 
 class Logout extends Component {
   componentWillMount() {
-    this.props.unsetUser();
+    localStorage.removeItem("user");
     history.push("/login");
   }
   render() {
@@ -13,8 +11,4 @@ class Logout extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
-
-const connected = connect(mapStateToProps, { unsetUser })(Logout);
-
-export default connected;
+export default Logout;
