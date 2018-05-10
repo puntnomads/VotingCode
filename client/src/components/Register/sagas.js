@@ -9,9 +9,9 @@ import {
 
 const signupUrl = "/api/auth/register";
 
-function signupApi(name, email, password) {
+function signupApi(values) {
   return axios
-    .post(signupUrl, { name, email, password })
+    .post(signupUrl, values)
     .then(function(response) {
       return response;
     })
@@ -20,11 +20,10 @@ function signupApi(name, email, password) {
     });
 }
 
-function* registerFlow(action) {
+function* registerFlow(values) {
   try {
-    const { name, email, password } = action;
     yield put(showLoading());
-    const response = yield call(signupApi, name, email, password);
+    const response = yield call(signupApi, values);
     yield put(hideLoading());
     yield put({ type: REGISTER_SUCCESS, response });
   } catch (error) {

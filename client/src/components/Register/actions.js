@@ -1,12 +1,10 @@
-import { REGISTER_REQUESTING } from './constants';
+import { REGISTER_REQUESTING } from "./constants";
 
-const registerRequest = function registerRequest ({ name, email, password }) {
+const registerRequest = function registerRequest(values) {
   return {
     type: REGISTER_REQUESTING,
-    name,
-    email,
-    password,
-  }
-}
+    ...values
+  };
+};
 
 export default registerRequest;

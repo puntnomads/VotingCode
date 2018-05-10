@@ -18,7 +18,7 @@ class UserPolls extends Component {
     this.props.userPollsGet(this.user.name);
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.userpolls.deletedPoll !== this.props.userpolls.deletedPoll) {
+    if (prevProps.userPolls.deletedPoll !== this.props.userPolls.deletedPoll) {
       if (!toast.isActive(this.toastId)) {
         this.toastId = toast.info("Poll has been successfully deleted.", {
           autoClose: 5000
@@ -51,7 +51,7 @@ class UserPolls extends Component {
     this.props.userPollDelete(userPoll._id);
   };
   render() {
-    let polls = this.props.userpolls.userPolls;
+    let polls = this.props.userPolls.userPolls;
     const filteredArray = [];
     if (this.state.tags.length > 0) {
       const tags = this.state.tags;
@@ -154,7 +154,7 @@ class UserPolls extends Component {
 }
 
 const mapStateToProps = state => ({
-  userpolls: state.userpolls
+  userPolls: state.userPolls
 });
 
 const connected = connect(mapStateToProps, { userPollsGet, userPollDelete })(

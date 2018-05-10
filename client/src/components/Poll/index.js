@@ -49,7 +49,7 @@ class Poll extends Component {
     if (newOption) {
       options.push([newOption, 1]);
     }
-    this.props.pollUpdate({ options: options, id: id });
+    this.props.pollUpdate({ options, id });
   };
 
   render() {

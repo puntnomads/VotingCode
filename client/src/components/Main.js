@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Authenticated from "./Authenticated";
 import Authorized from "./Authorized";
@@ -13,7 +13,7 @@ import Profile from "./Profile";
 import Poll from "./Poll";
 import axiosInterceptor from "./Lib/axiosInterceptor";
 
-export default class Main extends React.Component {
+class Main extends Component {
   render() {
     return (
       <div>
@@ -38,3 +38,5 @@ export default class Main extends React.Component {
     );
   }
 }
+
+export default Main;

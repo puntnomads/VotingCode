@@ -6,7 +6,7 @@ import {
 } from "./constants";
 
 const initialState = {
-  newpoll: {},
+  newPoll: {},
   requesting: false,
   successful: false,
   messages: [],
@@ -31,7 +31,7 @@ const reducer = function newPollReducer(state = initialState, action) {
 
     case POLL_CREATE_SUCCESS:
       return {
-        newpoll: action.poll,
+        newPoll: action.poll,
         requesting: false,
         successful: true,
         messages: [
@@ -59,7 +59,7 @@ const reducer = function newPollReducer(state = initialState, action) {
 
     case POLL_CREATE_RESET:
       return {
-        newpoll: {},
+        newPoll: {},
         requesting: false,
         successful: false,
         messages: [],

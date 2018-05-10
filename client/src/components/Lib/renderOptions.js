@@ -34,9 +34,8 @@ class renderOptions extends Component {
             );
           } else {
             return (
-              <div>
+              <div key={i + 1}>
                 <Field
-                  key={i + 1}
                   name={option}
                   placeholder={"New Option"}
                   controlId={`option${i + 1}`}

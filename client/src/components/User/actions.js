@@ -1,13 +1,9 @@
 import { USER_SET, USER_UNSET } from "./constants";
 
-export const setUser = function setUser({ token, ttl, created, name, email }) {
+export const setUser = function setUser(values) {
   return {
     type: USER_SET,
-    token,
-    ttl,
-    created,
-    name,
-    email
+    ...values
   };
 };
 

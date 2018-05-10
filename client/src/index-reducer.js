@@ -4,20 +4,20 @@ import { loadingBarReducer } from "react-redux-loading-bar";
 import user from "./components/User/reducer";
 import register from "./components/Register/reducer";
 import login from "./components/Login/reducer";
-import newpoll from "./components/NewPoll/reducer";
+import newPoll from "./components/NewPoll/reducer";
 import poll from "./components/Poll/reducer";
 import polls from "./components/Polls/reducer";
-import userpolls from "./components/UserPolls/reducer";
+import userPolls from "./components/UserPolls/reducer";
 
 const IndexReducer = combineReducers({
   register,
   user,
   login,
-  newpoll,
+  newPoll,
   poll,
   form,
   polls,
-  userpolls,
+  userPolls,
   loadingBar: loadingBarReducer
 });
 

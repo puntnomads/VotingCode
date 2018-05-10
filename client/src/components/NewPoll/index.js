@@ -42,7 +42,7 @@ const LinkContainer = styled.p`
 class NewPoll extends Component {
   user = JSON.parse(localStorage.getItem("user"));
   componentWillUnmount() {
-    if (this.props.newpoll.newpoll._id) {
+    if (this.props.newPoll.newPoll._id) {
       this.props.pollCreateReset();
     }
   }
@@ -53,14 +53,12 @@ class NewPoll extends Component {
       return null;
     }
     const newtags = tagsArray.concat(value);
-    this.props.dispatch(change("newpoll", "tags", newtags));
+    this.props.dispatch(change("newPoll", "tags", newtags));
   };
-
   deleteTag = (tag, tags) => {
     const newtags = tags.filter(item => item !== tag);
-    this.props.dispatch(change("newpoll", "tags", newtags));
+    this.props.dispatch(change("newPoll", "tags", newtags));
   };
-
   submit = values => {
     values["name"] = this.user.name;
     values.options = values.options.map(function(obj) {
@@ -68,15 +66,14 @@ class NewPoll extends Component {
     });
     this.props.pollCreate(values);
   };
-
   render() {
     const {
       tags,
       handleSubmit,
       invalid,
-      newpoll: { newpoll }
+      newPoll: { newPoll }
     } = this.props;
-    const poll_ID = newpoll._id;
+    const poll_ID = newPoll._id;
     return (
       <div>
         {!poll_ID ? (
@@ -151,12 +148,12 @@ class NewPoll extends Component {
                     <a
                       href={`${window.location.protocol}//${
                         window.location.host
-                      }/poll/${newpoll._id}`}
+                      }/poll/${newPoll._id}`}
                       target="_blank"
                     >
                       {`${window.location.protocol}//${
                         window.location.host
-                      }/poll/${newpoll._id}`}
+                      }/poll/${newPoll._id}`}
                     </a>
                   </LinkContainer>
                 </NewPollLinkContainer>
@@ -169,11 +166,10 @@ class NewPoll extends Component {
   }
 }
 
-const selector = formValueSelector("newpoll");
+const selector = formValueSelector("newPoll");
 
 const mapStateToProps = state => ({
-  user: state.user,
-  newpoll: state.newpoll,
+  newPoll: state.newPoll,
   tags: selector(state, "tags")
 });
 
@@ -182,7 +178,7 @@ const connected = connect(mapStateToProps, { pollCreate, pollCreateReset })(
 );
 
 const formed = reduxForm({
-  form: "newpoll"
+  form: "newPoll"
 })(connected);
 
 export default formed;

@@ -9,7 +9,7 @@ import {
   ControlLabel
 } from "react-bootstrap";
 
-export default class Profile extends Component {
+class Profile extends Component {
   user = JSON.parse(localStorage.getItem("user"));
   state = {
     oldpassword: "",
@@ -131,3 +131,5 @@ export default class Profile extends Component {
     );
   }
 }
+
+export default Profile;

@@ -28,11 +28,10 @@ export const pollGetError = function pollGetError(error) {
   };
 };
 
-export const pollUpdate = function pollUpdate({ options, id }) {
+export const pollUpdate = function pollUpdate(values) {
   return {
     type: POLL_UPDATING,
-    options,
-    id
+    ...values
   };
 };
 

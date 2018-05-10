@@ -7,9 +7,9 @@ import { pollCreateSuccess, pollCreateError } from "./actions";
 
 const createPollUrl = "/api/polls";
 
-function createPollApi(name, options, tags, title) {
+function createPollApi(values) {
   return axios
-    .post(createPollUrl, { name, options, tags, title })
+    .post(createPollUrl, values)
     .then(function(response) {
       return response.data.poll;
     })
@@ -18,11 +18,10 @@ function createPollApi(name, options, tags, title) {
     });
 }
 
-function* createPollFlow(action) {
+function* createPollFlow(values) {
   try {
-    const { name, options, tags, title } = action;
     yield put(showLoading());
-    const response = yield call(createPollApi, name, options, tags, title);
+    const response = yield call(createPollApi, values);
     yield put(hideLoading());
     yield put(pollCreateSuccess(response));
   } catch (error) {

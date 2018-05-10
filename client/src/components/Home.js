@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { Grid, Row, Col, Button, Jumbotron, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-export default class Home extends React.Component {
+class Home extends Component {
   render() {
     return (
       <div>
@@ -23,25 +23,27 @@ export default class Home extends React.Component {
           </p>
         </Jumbotron>
         <Grid>
-        <Row className="home">
-          <Col xs={12} sm={4}>
-            <Glyphicon glyph="ok" />
-            <h3>Take polls</h3>
-            <p>You can view and take polls created by other users</p>
-          </Col>
-          <Col xs={12} sm={4}>
-            <Glyphicon glyph="plus-sign" />
-            <h3>Create polls</h3>
-            <p>You can view and take polls created by other users</p>
-          </Col>
-          <Col xs={12} sm={4}>
-            <Glyphicon glyph="stats" />
-            <h3>Statistics</h3>
-            <p>You can view and take polls created by other users</p>
-          </Col>
-        </Row>
-      </Grid>
+          <Row className="home">
+            <Col xs={12} sm={4}>
+              <Glyphicon glyph="ok" />
+              <h3>Take polls</h3>
+              <p>You can view and take polls created by other users</p>
+            </Col>
+            <Col xs={12} sm={4}>
+              <Glyphicon glyph="plus-sign" />
+              <h3>Create polls</h3>
+              <p>You can view and take polls created by other users</p>
+            </Col>
+            <Col xs={12} sm={4}>
+              <Glyphicon glyph="stats" />
+              <h3>Statistics</h3>
+              <p>You can view and take polls created by other users</p>
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
 }
+
+export default Home;
