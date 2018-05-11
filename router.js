@@ -27,4 +27,9 @@ module.exports = function(app) {
   app.get("*", function(req, res) {
     res.sendFile(path.resolve(__dirname + "/client/build/index.html"));
   });
+
+  // errors from controller functions are received here.
+  app.use((error, req, res, next) => {
+    console.log("error: ", error);
+  });
 };

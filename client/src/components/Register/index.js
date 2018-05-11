@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import registerRequest from "./actions";
 import Input from "../Lib/Input";
+import ErrorBoundary from "../Lib/ErrorBoundary";
 
 const nameRequired = value => (value ? undefined : "Name Required");
 const emailRequired = value =>
@@ -40,57 +41,59 @@ class Register extends Component {
     } = this.props;
 
     return (
-      <div>
-        {!successful && (
-          <Grid>
-            <Row>
-              <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
-                <div className="page">
-                  <h1>Register</h1>
-                  <form onSubmit={handleSubmit(this.submit)}>
-                    <Field
-                      name="name"
-                      label="Name"
-                      controlId="name"
-                      bsSize="large"
-                      type="text"
-                      validate={nameRequired}
-                      component={Input}
-                    />
-                    <Field
-                      name="email"
-                      label="Email"
-                      controlId="email"
-                      bsSize="large"
-                      type="email"
-                      validate={emailRequired}
-                      component={Input}
-                    />
-                    <Field
-                      name="password"
-                      label="Password"
-                      controlId="password"
-                      bsSize="large"
-                      type="password"
-                      validate={passwordRequired}
-                      component={Input}
-                    />
-                    <Button
-                      block
-                      bsSize="large"
-                      disabled={invalid}
-                      type="submit"
-                    >
-                      Register
-                    </Button>
-                  </form>
-                </div>
-              </Col>
-            </Row>
-          </Grid>
-        )}
-        {!requesting && successful && <Redirect to="/login" />}
-      </div>
+      <ErrorBoundary>
+        <div>
+          {!successful && (
+            <Grid>
+              <Row>
+                <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+                  <div className="page">
+                    <h1>Register</h1>
+                    <form onSubmit={handleSubmit(this.submit)}>
+                      <Field
+                        name="name"
+                        label="Name"
+                        controlId="name"
+                        bsSize="large"
+                        type="text"
+                        validate={nameRequired}
+                        component={Input}
+                      />
+                      <Field
+                        name="email"
+                        label="Email"
+                        controlId="email"
+                        bsSize="large"
+                        type="email"
+                        validate={emailRequired}
+                        component={Input}
+                      />
+                      <Field
+                        name="password"
+                        label="Password"
+                        controlId="password"
+                        bsSize="large"
+                        type="password"
+                        validate={passwordRequired}
+                        component={Input}
+                      />
+                      <Button
+                        block
+                        bsSize="large"
+                        disabled={invalid}
+                        type="submit"
+                      >
+                        Register
+                      </Button>
+                    </form>
+                  </div>
+                </Col>
+              </Row>
+            </Grid>
+          )}
+          {!requesting && successful && <Redirect to="/login" />}
+        </div>
+      </ErrorBoundary>
     );
   }
 }

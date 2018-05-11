@@ -6,6 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { toast } from "react-toastify";
 import { userPollsGet, userPollDelete } from "./actions";
 import alltags from "../Lib/tags";
+import ErrorBoundary from "../Lib/ErrorBoundary";
 
 class UserPolls extends Component {
   toastId = null;
@@ -67,88 +68,90 @@ class UserPolls extends Component {
       polls = filteredArray;
     }
     return (
-      <div className="polls">
-        <h1>User Polls</h1>
-        <Grid>
-          <Row>
-            <Col
-              xs={10}
-              xsOffset={1}
-              md={6}
-              mdOffset={3}
-              className="thumbnails"
-            >
-              <div className="displaytags">
-                {this.state.tags.map((tag, i) => (
-                  <a
-                    className="tag"
-                    key={i}
-                    value={tag}
-                    onClick={() => this.deleteTag(tag)}
-                  >
-                    {tag} <Glyphicon glyph="remove" />
-                  </a>
-                ))}
-              </div>
-              <div className="taginput">
-                <input
-                  type="text"
-                  list="data"
-                  onChange={this.addTag}
-                  placeholder="Filter list by tags"
-                />
-              </div>
-              <datalist id="data">
-                <select>
-                  {this.state.alltags.map((item, i) => (
-                    <option key={i} value={item}>
-                      {item}
-                    </option>
+      <ErrorBoundary>
+        <div className="polls">
+          <h1>User Polls</h1>
+          <Grid>
+            <Row>
+              <Col
+                xs={10}
+                xsOffset={1}
+                md={6}
+                mdOffset={3}
+                className="thumbnails"
+              >
+                <div className="displaytags">
+                  {this.state.tags.map((tag, i) => (
+                    <a
+                      className="tag"
+                      key={i}
+                      value={tag}
+                      onClick={() => this.deleteTag(tag)}
+                    >
+                      {tag} <Glyphicon glyph="remove" />
+                    </a>
                   ))}
-                </select>
-              </datalist>
-              {polls &&
-                polls.length < 1 && (
-                  <Thumbnail className="nothumbnail">
-                    <Grid>
-                      <Row>
-                        <Col xs={7} md={4}>
-                          <p>No polls yet. Create a first one!</p>
-                        </Col>
-                        <Col xs={2} md={2}>
-                          <LinkContainer to="/newpoll">
-                            <Glyphicon glyph="plus-sign" />
-                          </LinkContainer>
-                        </Col>
-                      </Row>
-                    </Grid>
-                  </Thumbnail>
-                )}
-              {polls &&
-                polls.map((poll, i) => (
-                  <Thumbnail className="thumbnail" key={i}>
-                    <Grid>
-                      <Row>
-                        <Link key={i} to={"/poll/" + poll._id}>
+                </div>
+                <div className="taginput">
+                  <input
+                    type="text"
+                    list="data"
+                    onChange={this.addTag}
+                    placeholder="Filter list by tags"
+                  />
+                </div>
+                <datalist id="data">
+                  <select>
+                    {this.state.alltags.map((item, i) => (
+                      <option key={i} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                </datalist>
+                {polls &&
+                  polls.length < 1 && (
+                    <Thumbnail className="nothumbnail">
+                      <Grid>
+                        <Row>
                           <Col xs={7} md={4}>
-                            <h3>{poll.title}</h3>
-                            <p>created by {poll.name}</p>
+                            <p>No polls yet. Create a first one!</p>
                           </Col>
-                        </Link>
-                        <Col xs={2} md={2} className="trash">
-                          <Glyphicon
-                            glyph="trash"
-                            onClick={() => this.deleteUserPoll(poll)}
-                          />
-                        </Col>
-                      </Row>
-                    </Grid>
-                  </Thumbnail>
-                ))}
-            </Col>
-          </Row>
-        </Grid>
-      </div>
+                          <Col xs={2} md={2}>
+                            <LinkContainer to="/newpoll">
+                              <Glyphicon glyph="plus-sign" />
+                            </LinkContainer>
+                          </Col>
+                        </Row>
+                      </Grid>
+                    </Thumbnail>
+                  )}
+                {polls &&
+                  polls.map((poll, i) => (
+                    <Thumbnail className="thumbnail" key={i}>
+                      <Grid>
+                        <Row>
+                          <Link key={i} to={"/poll/" + poll._id}>
+                            <Col xs={7} md={4}>
+                              <h3>{poll.title}</h3>
+                              <p>created by {poll.name}</p>
+                            </Col>
+                          </Link>
+                          <Col xs={2} md={2} className="trash">
+                            <Glyphicon
+                              glyph="trash"
+                              onClick={() => this.deleteUserPoll(poll)}
+                            />
+                          </Col>
+                        </Row>
+                      </Grid>
+                    </Thumbnail>
+                  ))}
+              </Col>
+            </Row>
+          </Grid>
+        </div>
+      </ErrorBoundary>
     );
   }
 }

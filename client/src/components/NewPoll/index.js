@@ -13,6 +13,7 @@ import { pollCreate, pollCreateReset } from "./actions";
 import Input from "../Lib/Input";
 import renderOptions from "../Lib/renderOptions";
 import tagInput from "../Lib/tagInput";
+import ErrorBoundary from "../Lib/ErrorBoundary";
 import "./index.css";
 
 const titleRequired = value => (value ? undefined : "Title Required");
@@ -77,89 +78,93 @@ class NewPoll extends Component {
     return (
       <div>
         {!poll_ID ? (
-          <Grid>
-            <Row>
-              <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
-                <div className="page">
-                  <Title>New Poll</Title>
-                  <form
-                    className="new-poll"
-                    onSubmit={handleSubmit(this.submit)}
-                  >
-                    <Field
-                      key="title"
-                      name="title"
-                      label="Name your poll"
-                      placeholder="What is your favourite programming language?"
-                      controlId="title"
-                      bsSize="large"
-                      type="text"
-                      validate={titleRequired}
-                      component={Input}
-                    />
-                    <FieldArray
-                      name="options"
-                      component={renderOptions}
-                      shouldUpdate={1}
-                    />
-                    <div className="displaytags">
-                      {tags &&
-                        tags.map((tag, i) => (
-                          <a
-                            className="tag"
-                            key={i}
-                            value={tag}
-                            onClick={() => this.deleteTag(tag, tags)}
-                          >
-                            {tag} <Glyphicon glyph="remove" />
-                          </a>
-                        ))}
-                    </div>
-                    <Field
-                      name="taginput"
-                      type="text"
-                      list="data"
-                      validate={tagRequired}
-                      addTag={this.addTag}
-                      tags={tags}
-                      component={tagInput}
-                    />
-                    <Button
-                      block
-                      bsSize="large"
-                      disabled={invalid}
-                      type="submit"
+          <ErrorBoundary>
+            <Grid>
+              <Row>
+                <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+                  <div className="page">
+                    <Title>New Poll</Title>
+                    <form
+                      className="new-poll"
+                      onSubmit={handleSubmit(this.submit)}
                     >
-                      Submit
-                    </Button>
-                  </form>
-                </div>
-              </Col>
-            </Row>
-          </Grid>
+                      <Field
+                        key="title"
+                        name="title"
+                        label="Name your poll"
+                        placeholder="What is your favourite programming language?"
+                        controlId="title"
+                        bsSize="large"
+                        type="text"
+                        validate={titleRequired}
+                        component={Input}
+                      />
+                      <FieldArray
+                        name="options"
+                        component={renderOptions}
+                        shouldUpdate={1}
+                      />
+                      <div className="displaytags">
+                        {tags &&
+                          tags.map((tag, i) => (
+                            <a
+                              className="tag"
+                              key={i}
+                              value={tag}
+                              onClick={() => this.deleteTag(tag, tags)}
+                            >
+                              {tag} <Glyphicon glyph="remove" />
+                            </a>
+                          ))}
+                      </div>
+                      <Field
+                        name="taginput"
+                        type="text"
+                        list="data"
+                        validate={tagRequired}
+                        addTag={this.addTag}
+                        tags={tags}
+                        component={tagInput}
+                      />
+                      <Button
+                        block
+                        bsSize="large"
+                        disabled={invalid}
+                        type="submit"
+                      >
+                        Submit
+                      </Button>
+                    </form>
+                  </div>
+                </Col>
+              </Row>
+            </Grid>
+          </ErrorBoundary>
         ) : (
-          <Grid>
-            <Row>
-              <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
-                <NewPollLinkContainer>
-                  <Title>Congratulations</Title>
-                  <Message>Your poll has been posted to</Message>
-                  <LinkContainer>
-                    <a
-                      href={`${window.location.protocol}//${
-                        window.location.host
-                      }/poll/${newPoll._id}`}
-                      target="_blank"
-                    >
-                      {`${window.location.protocol}//${
-                        window.location.host
-                      }/poll/${newPoll._id}`}
-                    </a>
-                  </LinkContainer>
-                </NewPollLinkContainer>
-              </Col>
-            </Row>
-          </Grid>
+          <ErrorBoundary>
+            <Grid>
+              <Row>
+                <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+                  <NewPollLinkContainer>
+                    <Title>Congratulations</Title>
+                    <Message>Your poll has been posted to</Message>
+                    <LinkContainer>
+                      <a
+                        href={`${window.location.protocol}//${
+                          window.location.host
+                        }/poll/${newPoll._id}`}
+                        target="_blank"
+                      >
+                        {`${window.location.protocol}//${
+                          window.location.host
+                        }/poll/${newPoll._id}`}
+                      </a>
+                    </LinkContainer>
+                  </NewPollLinkContainer>
+                </Col>
+              </Row>
+            </Grid>
+          </ErrorBoundary>
         )}
       </div>
     );

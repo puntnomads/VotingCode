@@ -5,6 +5,7 @@ import { Grid, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import loginRequest from "./actions";
 import Input from "../Lib/Input";
+import ErrorBoundary from "../Lib/ErrorBoundary";
 
 const emailRequired = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
@@ -32,38 +33,40 @@ class Login extends Component {
   render() {
     const { handleSubmit, invalid } = this.props;
     return (
-      <Grid>
-        <Row>
-          <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
-            <div className="page">
-              <h1>Login</h1>
-              <form onSubmit={handleSubmit(this.submit)}>
-                <Field
-                  name="email"
-                  label="Email"
-                  controlId="email"
-                  bsSize="large"
-                  type="email"
-                  validate={emailRequired}
-                  component={Input}
-                />
-                <Field
-                  name="password"
-                  label="Password"
-                  controlId="password"
-                  bsSize="large"
-                  type="password"
-                  validate={passwordRequired}
-                  component={Input}
-                />
-                <Button block bsSize="large" disabled={invalid} type="submit">
-                  Login
-                </Button>
-              </form>
-            </div>
-          </Col>
-        </Row>
-      </Grid>
+      <ErrorBoundary>
+        <Grid>
+          <Row>
+            <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+              <div className="page">
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit(this.submit)}>
+                  <Field
+                    name="email"
+                    label="Email"
+                    controlId="email"
+                    bsSize="large"
+                    type="email"
+                    validate={emailRequired}
+                    component={Input}
+                  />
+                  <Field
+                    name="password"
+                    label="Password"
+                    controlId="password"
+                    bsSize="large"
+                    type="password"
+                    validate={passwordRequired}
+                    component={Input}
+                  />
+                  <Button block bsSize="large" disabled={invalid} type="submit">
+                    Login
+                  </Button>
+                </form>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </ErrorBoundary>
     );
   }
 }

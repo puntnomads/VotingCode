@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import ErrorBoundary from "./ErrorBoundary";
 
 class Input extends Component {
   render() {
@@ -15,18 +16,20 @@ class Input extends Component {
     const validationState =
       (touched && (input.value.length === 0 && "error")) || null;
     return (
-      <FormGroup
-        controlId={controlId}
-        bsSize={bsSize}
-        validationState={validationState}
-      >
-        {label && <ControlLabel>{label}</ControlLabel>}
-        <FormControl
-          {...input}
-          type={type}
-          placeholder={placeholder ? placeholder : ""}
-        />
-      </FormGroup>
+      <ErrorBoundary>
+        <FormGroup
+          controlId={controlId}
+          bsSize={bsSize}
+          validationState={validationState}
+        >
+          {label && <ControlLabel>{label}</ControlLabel>}
+          <FormControl
+            {...input}
+            type={type}
+            placeholder={placeholder ? placeholder : ""}
+          />
+        </FormGroup>
+      </ErrorBoundary>
     );
   }
 }

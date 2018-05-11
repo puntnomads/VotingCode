@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { pollsGet } from "./actions";
 import alltags from "../Lib/tags";
+import ErrorBoundary from "../Lib/ErrorBoundary";
 
 class Polls extends Component {
   constructor(props) {
@@ -57,58 +58,60 @@ class Polls extends Component {
       polls = filteredArray;
     }
     return (
-      <div className="polls">
-        <h1>Polls</h1>
-        <Grid>
-          <Row>
-            <Col
-              xs={10}
-              xsOffset={1}
-              md={6}
-              mdOffset={3}
-              className="thumbnails"
-            >
-              <div className="displaytags">
-                {this.state.tags.map((tag, i) => (
-                  <a
-                    className="tag"
-                    key={i}
-                    value={tag}
-                    onClick={() => this.deleteTag(tag)}
-                  >
-                    {tag} <Glyphicon glyph="remove" />
-                  </a>
-                ))}
-              </div>
-              <div className="taginput">
-                <input
-                  type="text"
-                  list="data"
-                  onChange={this.addTag}
-                  placeholder="Filter list by tags"
-                />
-              </div>
-              <datalist id="data">
-                <select>
-                  {this.state.alltags.map((item, i) => (
-                    <option key={i} value={item}>
-                      {item}
-                    </option>
+      <ErrorBoundary>
+        <div className="polls">
+          <h1>Polls</h1>
+          <Grid>
+            <Row>
+              <Col
+                xs={10}
+                xsOffset={1}
+                md={6}
+                mdOffset={3}
+                className="thumbnails"
+              >
+                <div className="displaytags">
+                  {this.state.tags.map((tag, i) => (
+                    <a
+                      className="tag"
+                      key={i}
+                      value={tag}
+                      onClick={() => this.deleteTag(tag)}
+                    >
+                      {tag} <Glyphicon glyph="remove" />
+                    </a>
                   ))}
-                </select>
-              </datalist>
-              {polls.map((poll, i) => (
-                <Thumbnail key={i} className="thumbnail">
-                  <Link to={"/poll/" + poll._id}>
-                    <h3>{poll.title}</h3>
-                    <p>created by {poll.name}</p>
-                  </Link>
-                </Thumbnail>
-              ))}
-            </Col>
-          </Row>
-        </Grid>
-      </div>
+                </div>
+                <div className="taginput">
+                  <input
+                    type="text"
+                    list="data"
+                    onChange={this.addTag}
+                    placeholder="Filter list by tags"
+                  />
+                </div>
+                <datalist id="data">
+                  <select>
+                    {this.state.alltags.map((item, i) => (
+                      <option key={i} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                </datalist>
+                {polls.map((poll, i) => (
+                  <Thumbnail key={i} className="thumbnail">
+                    <Link to={"/poll/" + poll._id}>
+                      <h3>{poll.title}</h3>
+                      <p>created by {poll.name}</p>
+                    </Link>
+                  </Thumbnail>
+                ))}
+              </Col>
+            </Row>
+          </Grid>
+        </div>
+      </ErrorBoundary>
     );
   }
 }

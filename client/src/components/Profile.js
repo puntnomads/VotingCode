@@ -8,6 +8,7 @@ import {
   FormControl,
   ControlLabel
 } from "react-bootstrap";
+import ErrorBoundary from "./Lib/ErrorBoundary";
 
 class Profile extends Component {
   user = JSON.parse(localStorage.getItem("user"));
@@ -58,76 +59,78 @@ class Profile extends Component {
   };
   render() {
     return (
-      <Grid>
-        <Row>
-          <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
-            <div>
-              <div className="page">
-                <h1>Profile</h1>
-                <form>
-                  <FormGroup controlId="name" bsSize="large">
-                    <ControlLabel>Name</ControlLabel>
-                    <FormControl
-                      type="text"
-                      className="profile"
-                      disabled
-                      value={this.state.name}
-                    />
-                  </FormGroup>
-                  <FormGroup controlId="email" bsSize="large">
-                    <ControlLabel>Email</ControlLabel>
-                    <FormControl
-                      type="text"
-                      className="profile"
-                      disabled
-                      value={this.state.email}
-                    />
-                  </FormGroup>
-                </form>
+      <ErrorBoundary>
+        <Grid>
+          <Row>
+            <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+              <div>
+                <div className="page">
+                  <h1>Profile</h1>
+                  <form>
+                    <FormGroup controlId="name" bsSize="large">
+                      <ControlLabel>Name</ControlLabel>
+                      <FormControl
+                        type="text"
+                        className="profile"
+                        disabled
+                        value={this.state.name}
+                      />
+                    </FormGroup>
+                    <FormGroup controlId="email" bsSize="large">
+                      <ControlLabel>Email</ControlLabel>
+                      <FormControl
+                        type="text"
+                        className="profile"
+                        disabled
+                        value={this.state.email}
+                      />
+                    </FormGroup>
+                  </form>
+                </div>
+                <div className="page">
+                  <h1>Change Password</h1>
+                  <form onSubmit={this.handleSubmit}>
+                    <FormGroup
+                      controlId="oldpassword"
+                      bsSize="large"
+                      validationState={this.validateState("oldpassword")}
+                    >
+                      <ControlLabel>Old password</ControlLabel>
+                      <FormControl
+                        type="password"
+                        value={this.state.oldpassword}
+                        onBlur={this.handleBlurred}
+                        onChange={this.handleChange}
+                      />
+                    </FormGroup>
+                    <FormGroup
+                      controlId="newpassword"
+                      bsSize="large"
+                      validationState={this.validateState("newpassword")}
+                    >
+                      <ControlLabel>New password</ControlLabel>
+                      <FormControl
+                        type="password"
+                        value={this.state.newpassword}
+                        onBlur={this.handleBlurred}
+                        onChange={this.handleChange}
+                      />
+                    </FormGroup>
+                    <Button
+                      block
+                      bsSize="large"
+                      disabled={!this.validateForm()}
+                      type="submit"
+                    >
+                      Change password
+                    </Button>
+                  </form>
+                </div>
               </div>
-              <div className="page">
-                <h1>Change Password</h1>
-                <form onSubmit={this.handleSubmit}>
-                  <FormGroup
-                    controlId="oldpassword"
-                    bsSize="large"
-                    validationState={this.validateState("oldpassword")}
-                  >
-                    <ControlLabel>Old password</ControlLabel>
-                    <FormControl
-                      type="password"
-                      value={this.state.oldpassword}
-                      onBlur={this.handleBlurred}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup
-                    controlId="newpassword"
-                    bsSize="large"
-                    validationState={this.validateState("newpassword")}
-                  >
-                    <ControlLabel>New password</ControlLabel>
-                    <FormControl
-                      type="password"
-                      value={this.state.newpassword}
-                      onBlur={this.handleBlurred}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <Button
-                    block
-                    bsSize="large"
-                    disabled={!this.validateForm()}
-                    type="submit"
-                  >
-                    Change password
-                  </Button>
-                </form>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Grid>
+            </Col>
+          </Row>
+        </Grid>
+      </ErrorBoundary>
     );
   }
 }

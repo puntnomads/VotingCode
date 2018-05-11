@@ -1,6 +1,7 @@
 const express = require("express"),
-  app = express(),
-  path = require("path"),
+  app = express();
+require("express-async-errors");
+const path = require("path"),
   bodyParser = require("body-parser"),
   router = require("./router"),
   mongoose = require("mongoose"),

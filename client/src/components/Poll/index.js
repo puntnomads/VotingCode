@@ -6,6 +6,7 @@ import { Chart } from "react-google-charts";
 import { toast } from "react-toastify";
 import { pollGet, pollUpdate } from "./actions";
 import simpleInput from "../Lib/simpleInput";
+import ErrorBoundary from "../Lib/ErrorBoundary";
 
 class Poll extends Component {
   toastId = null;
@@ -65,73 +66,75 @@ class Poll extends Component {
     const data = initialData.concat(options);
     const tags = poll.tags ? poll.tags : [];
     return (
-      <Grid>
-        <Row>
-          <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
-            <div className="page">
-              <h1>{title}</h1>
-              <form onSubmit={handleSubmit(this.submit)}>
-                <Row className="home">
-                  <Col xs={12} md={this.user.token ? 5 : 12}>
-                    <FormControl
-                      componentClass="select"
-                      disabled={newOption ? "disabled" : ""}
-                      onChange={this.selectOption}
-                    >
-                      <option key={0} value={""}>
-                        Choose an option
-                      </option>
-                      {data.map((item, i) => {
-                        if (i > 0) {
-                          return (
-                            <option key={i + 1} value={item[0]}>
-                              {item[0]}
-                            </option>
-                          );
-                        } else {
-                          return null;
-                        }
-                      })}
-                    </FormControl>
-                  </Col>
-                  {this.user.token && (
-                    <Col xs={12} md={2}>
-                      <p>or vote with</p>
+      <ErrorBoundary>
+        <Grid>
+          <Row>
+            <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
+              <div className="page">
+                <h1>{title}</h1>
+                <form onSubmit={handleSubmit(this.submit)}>
+                  <Row className="home">
+                    <Col xs={12} md={this.user.token ? 5 : 12}>
+                      <FormControl
+                        componentClass="select"
+                        disabled={newOption ? "disabled" : ""}
+                        onChange={this.selectOption}
+                      >
+                        <option key={0} value={""}>
+                          Choose an option
+                        </option>
+                        {data.map((item, i) => {
+                          if (i > 0) {
+                            return (
+                              <option key={i + 1} value={item[0]}>
+                                {item[0]}
+                              </option>
+                            );
+                          } else {
+                            return null;
+                          }
+                        })}
+                      </FormControl>
                     </Col>
-                  )}
-                  {this.user.token && (
-                    <Col xs={12} md={5}>
-                      <Field
-                        name="newOption"
-                        selectedOption={selectedOption}
-                        component={simpleInput}
-                      />
-                    </Col>
-                  )}
-                </Row>
-                <Button block bsSize="large" type="submit" className="vote">
-                  Vote
-                </Button>
-                <div className="displaytags">
-                  {tags.map((tag, i) => (
-                    <a className="tag" key={i}>
-                      {tag}
-                    </a>
-                  ))}
-                </div>
-                <div>
-                  <Chart
-                    chartType="PieChart"
-                    width="100%"
-                    data={data}
-                    options={{ is3D: true }}
-                  />
-                </div>
-              </form>
-            </div>
-          </Col>
-        </Row>
-      </Grid>
+                    {this.user.token && (
+                      <Col xs={12} md={2}>
+                        <p>or vote with</p>
+                      </Col>
+                    )}
+                    {this.user.token && (
+                      <Col xs={12} md={5}>
+                        <Field
+                          name="newOption"
+                          selectedOption={selectedOption}
+                          component={simpleInput}
+                        />
+                      </Col>
+                    )}
+                  </Row>
+                  <Button block bsSize="large" type="submit" className="vote">
+                    Vote
+                  </Button>
+                  <div className="displaytags">
+                    {tags.map((tag, i) => (
+                      <a className="tag" key={i}>
+                        {tag}
+                      </a>
+                    ))}
+                  </div>
+                  <div>
+                    <Chart
+                      chartType="PieChart"
+                      width="100%"
+                      data={data}
+                      options={{ is3D: true }}
+                    />
+                  </div>
+                </form>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </ErrorBoundary>
     );
   }
 }
