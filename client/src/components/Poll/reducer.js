@@ -9,7 +9,6 @@ import {
 
 const initialState = {
   poll: {},
-  updated: false,
   requesting: false,
   successful: false,
   messages: [],
@@ -79,7 +78,6 @@ const reducer = function pollReducer(state = initialState, action) {
       return {
         ...state,
         poll: action.poll,
-        updated: true,
         requesting: false,
         successful: true,
         messages: [

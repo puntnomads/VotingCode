@@ -20,11 +20,6 @@ class UserPolls extends Component {
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.userPolls.deletedPoll !== this.props.userPolls.deletedPoll) {
-      if (!toast.isActive(this.toastId)) {
-        this.toastId = toast.info("Poll has been successfully deleted.", {
-          autoClose: 5000
-        });
-      }
       this.props.userPollsGet(this.user.name);
     }
   }

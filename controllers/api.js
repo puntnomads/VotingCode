@@ -12,10 +12,9 @@ exports.getUserPolls = async (req, res, next) => {
 };
 
 exports.createAPoll = async (req, res, next) => {
-  console.log("body: ", req.body);
   const poll = new Poll(req.body);
   let newPoll = await poll.save();
-  res.json({ poll: newPoll });
+  res.json({ poll: newPoll, info: "Poll created" });
 };
 
 exports.getAPoll = async (req, res, next) => {
@@ -28,10 +27,10 @@ exports.updateAPoll = async (req, res, next) => {
   const poll = await Poll.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true
   });
-  res.json({ poll: poll });
+  res.json({ poll: poll, info: "You have successfully voted." });
 };
 
 exports.deleteAPoll = async (req, res, next) => {
   const poll = await Poll.findOneAndRemove({ _id: req.params.id });
-  res.json({ poll: poll });
+  res.json({ poll: poll, info: "Poll deleted" });
 };

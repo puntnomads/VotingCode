@@ -17,15 +17,6 @@ class Poll extends Component {
     } = this.props;
     this.props.pollGet(params.poll_id);
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.poll.updated !== this.props.poll.updated) {
-      if (!toast.isActive(this.toastId)) {
-        this.toastId = toast.info("You have successfully voted.", {
-          autoClose: 5000
-        });
-      }
-    }
-  }
   selectOption = event => {
     const value = event.target.value;
     this.props.dispatch(change("poll", "selectedOption", value));
