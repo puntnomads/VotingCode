@@ -18,10 +18,10 @@ function createPollApi(values) {
     });
 }
 
-function* createPollFlow(values) {
+function* createPollFlow(action) {
   try {
     yield put(showLoading());
-    const response = yield call(createPollApi, values);
+    const response = yield call(createPollApi, action.values);
     yield put(hideLoading());
     yield put(pollCreateSuccess(response));
   } catch (error) {

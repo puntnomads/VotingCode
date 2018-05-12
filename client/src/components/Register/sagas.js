@@ -20,10 +20,10 @@ function signupApi(values) {
     });
 }
 
-function* registerFlow(values) {
+function* registerFlow(action) {
   try {
     yield put(showLoading());
-    const response = yield call(signupApi, values);
+    const response = yield call(signupApi, action.values);
     yield put(hideLoading());
     yield put({ type: REGISTER_SUCCESS, response });
   } catch (error) {

@@ -19,10 +19,10 @@ function loginApi(values) {
     });
 }
 
-function* loginFlow(values) {
+function* loginFlow(action) {
   try {
     yield put(showLoading());
-    const response = yield call(loginApi, values);
+    const response = yield call(loginApi, action.values);
     yield put(hideLoading());
     yield put(setUser(response));
     yield put({ type: LOGIN_SUCCESS });

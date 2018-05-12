@@ -4,6 +4,7 @@ import { loadingBarReducer } from "react-redux-loading-bar";
 import user from "./components/User/reducer";
 import register from "./components/Register/reducer";
 import login from "./components/Login/reducer";
+import forgotPassword from "./components/ForgotPassword/reducer";
 import newPoll from "./components/NewPoll/reducer";
 import poll from "./components/Poll/reducer";
 import polls from "./components/Polls/reducer";
@@ -13,6 +14,7 @@ const IndexReducer = combineReducers({
   register,
   user,
   login,
+  forgotPassword,
   newPoll,
   poll,
   form,

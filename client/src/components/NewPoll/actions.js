@@ -8,7 +8,7 @@ import {
 export const pollCreate = function pollCreate(values) {
   return {
     type: POLL_CREATING,
-    ...values
+    values
   };
 };
 
