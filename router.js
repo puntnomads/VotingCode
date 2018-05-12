@@ -15,6 +15,10 @@ module.exports = function(app) {
   apiRoutes.use("/auth", authRoutes);
   authRoutes.post("/register", AuthenticationController.register);
   authRoutes.post("/forgot-password", AuthenticationController.forgotPassword);
+  authRoutes.post(
+    "/reset-password/:token",
+    AuthenticationController.resetPassword
+  );
   authRoutes.post("/login", requireLogin, AuthenticationController.login);
 
   app.use("/api", apiRoutes);

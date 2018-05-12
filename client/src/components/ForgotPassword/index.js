@@ -34,11 +34,13 @@ class ForgotPassword extends Component {
     }
   }
   submit = values => {
+    const { reset } = this.props;
     values["email"] = values["forgot_password_email"];
     delete values.forgot_password_email;
     if (this.recaptcha) {
       values["g-recaptcha-response"] = this.recaptcha;
       this.props.forgotPasswordRequest(values);
+      reset();
     } else {
       if (!toast.isActive(this.toastId)) {
         this.toastId = toast.error("Please complete the reCAPTCHA.", {

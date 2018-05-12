@@ -6,6 +6,7 @@ import Home from "./Home";
 import Polls from "./Polls";
 import UserPolls from "./UserPolls";
 import Login from "./Login";
+import ResetPassword from "./ResetPassword";
 import Logout from "./Logout";
 import Register from "./Register";
 import NewPoll from "./NewPoll";
@@ -26,6 +27,11 @@ class Main extends Component {
             <Route exact path="/userpolls" component={Authorized(UserPolls)} />
             <Route exact path="/polls" component={Polls} />
             <Route exact path="/login" component={Authenticated(Login)} />
+            <Route
+              exact
+              path="/reset-password/:token"
+              component={ResetPassword}
+            />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/register" component={Authenticated(Register)} />
             <Route exact path="/newpoll" component={Authorized(NewPoll)} />

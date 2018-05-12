@@ -3,13 +3,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { toast } from "react-toastify";
 import { userPollsGet, userPollDelete } from "./actions";
 import alltags from "../Lib/tags";
 import ErrorBoundary from "../Lib/ErrorBoundary";
 
 class UserPolls extends Component {
-  toastId = null;
   user = JSON.parse(localStorage.getItem("user"));
   state = {
     alltags: alltags,

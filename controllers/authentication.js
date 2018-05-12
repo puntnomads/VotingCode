@@ -97,10 +97,39 @@ exports.forgotPassword = async (req, res, next) => {
             "http://"}${req.headers.host}/reset-password/${resetToken}\n\n` +
           `If you did not request this, please ignore this email and your password will remain unchanged.\n`
       };
-      let info = await transporter.sendMail(mailOptions);
+      await transporter.sendMail(mailOptions);
       res.json({
         info: "An email was sent to you with the link to reset your password."
       });
     }
   }
+};
+
+exports.resetPassword = async (req, res, next) => {
+  const resetUser = await User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: { $gt: Date.now() }
+  });
+  if (!resetUser) {
+    res.json({
+      error:
+        "Your token has expired. Please attempt to reset your password again."
+    });
+  }
+  resetUser.password = req.body.password;
+  resetUser.resetPasswordToken = undefined;
+  resetUser.resetPasswordExpires = undefined;
+  await resetUser.save();
+  const mailOptions = {
+    from: "voting-code@gmail.com",
+    to: resetUser.email,
+    subject: "Password Changed",
+    text:
+      "You are receiving this email because you changed your password. \n\n" +
+      "If you did not request this change, please contact us immediately."
+  };
+  await transporter.sendMail(mailOptions);
+  res.json({
+    info: "Password changed successfully. Please login with your new password."
+  });
 };

@@ -5,6 +5,7 @@ import user from "./components/User/reducer";
 import register from "./components/Register/reducer";
 import login from "./components/Login/reducer";
 import forgotPassword from "./components/ForgotPassword/reducer";
+import resetPassword from "./components/ResetPassword/reducer";
 import newPoll from "./components/NewPoll/reducer";
 import poll from "./components/Poll/reducer";
 import polls from "./components/Polls/reducer";
@@ -15,6 +16,7 @@ const IndexReducer = combineReducers({
   user,
   login,
   forgotPassword,
+  resetPassword,
   newPoll,
   poll,
   form,
