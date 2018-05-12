@@ -13,12 +13,14 @@ import Profile from "./Profile";
 import Poll from "./Poll";
 import axiosInterceptor from "./Lib/axiosInterceptor";
 import ErrorBoundary from "./Lib/ErrorBoundary";
+import Analytics from "./Lib/Analytics";
 
 class Main extends Component {
   render() {
     return (
       <ErrorBoundary>
         <div>
+          <Route path="/" component={Analytics} />
           <Route path="/" component={axiosInterceptor} />
           <Switch>
             <Route exact path="/userpolls" component={Authorized(UserPolls)} />

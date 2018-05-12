@@ -74,7 +74,7 @@ class Poll extends Component {
                 <h1>{title}</h1>
                 <form onSubmit={handleSubmit(this.submit)}>
                   <Row className="home">
-                    <Col xs={12} md={this.user.token ? 5 : 12}>
+                    <Col xs={12} md={this.user && this.user.token ? 5 : 12}>
                       <FormControl
                         componentClass="select"
                         disabled={newOption ? "disabled" : ""}
@@ -96,20 +96,22 @@ class Poll extends Component {
                         })}
                       </FormControl>
                     </Col>
-                    {this.user.token && (
-                      <Col xs={12} md={2}>
-                        <p>or vote with</p>
-                      </Col>
-                    )}
-                    {this.user.token && (
-                      <Col xs={12} md={5}>
-                        <Field
-                          name="newOption"
-                          selectedOption={selectedOption}
-                          component={simpleInput}
-                        />
-                      </Col>
-                    )}
+                    {this.user &&
+                      this.user.token && (
+                        <Col xs={12} md={2}>
+                          <p>or vote with</p>
+                        </Col>
+                      )}
+                    {this.user &&
+                      this.user.token && (
+                        <Col xs={12} md={5}>
+                          <Field
+                            name="newOption"
+                            selectedOption={selectedOption}
+                            component={simpleInput}
+                          />
+                        </Col>
+                      )}
                   </Row>
                   <Button block bsSize="large" type="submit" className="vote">
                     Vote
