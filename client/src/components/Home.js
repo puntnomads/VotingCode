@@ -29,17 +29,17 @@ class Home extends Component {
               <Col xs={12} sm={4}>
                 <Glyphicon glyph="ok" />
                 <h3>Take polls</h3>
-                <p>You can view and take polls created by other users</p>
+                <p>You can take polls created by other users</p>
               </Col>
               <Col xs={12} sm={4}>
                 <Glyphicon glyph="plus-sign" />
                 <h3>Create polls</h3>
-                <p>You can view and take polls created by other users</p>
+                <p>You can create polls that other users can vote on</p>
               </Col>
               <Col xs={12} sm={4}>
                 <Glyphicon glyph="stats" />
                 <h3>Statistics</h3>
-                <p>You can view and take polls created by other users</p>
+                <p>You can view polls created by other users</p>
               </Col>
             </Row>
           </Grid>
