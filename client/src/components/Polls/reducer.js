@@ -30,6 +30,7 @@ const reducer = function pollsReducer(state = initialState, action) {
 
     case POLLS_GETTING_SUCCESS:
       return {
+        ...state,
         polls: action.polls,
         requesting: false,
         successful: true,

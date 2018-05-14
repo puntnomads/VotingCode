@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { userPollsGet, userPollDelete } from "./actions";
-import alltags from "../Lib/tags";
+import allTags from "../Lib/tags";
 import ErrorBoundary from "../Lib/ErrorBoundary";
 
 class UserPolls extends Component {
   user = JSON.parse(localStorage.getItem("user"));
   state = {
-    alltags: alltags,
+    allTags: allTags,
     tags: []
   };
   componentDidMount() {
@@ -27,7 +27,7 @@ class UserPolls extends Component {
     if (tagsArray.indexOf(value) !== -1) {
       return null;
     }
-    if (this.state.alltags.indexOf(value) > -1) {
+    if (this.state.allTags.indexOf(value) > -1) {
       const newtags = tagsArray.concat(event.target.value);
       event.target.value = "";
       this.setState({
@@ -95,7 +95,7 @@ class UserPolls extends Component {
                 </div>
                 <datalist id="data">
                   <select>
-                    {this.state.alltags.map((item, i) => (
+                    {this.state.allTags.map((item, i) => (
                       <option key={i} value={item}>
                         {item}
                       </option>

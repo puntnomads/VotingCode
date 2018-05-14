@@ -3,29 +3,24 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col, Thumbnail, Glyphicon } from "react-bootstrap";
 import { pollsGet } from "./actions";
-import alltags from "../Lib/tags";
+import allTags from "../Lib/tags";
 import ErrorBoundary from "../Lib/ErrorBoundary";
 
 class Polls extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      alltags: alltags,
-      tags: []
-    };
-  }
-
+  state = {
+    allTags: allTags,
+    tags: []
+  };
   componentDidMount() {
     this.props.pollsGet();
   }
-
   addTag = event => {
     const tagsArray = this.state.tags ? this.state.tags : [];
     const value = event.target.value;
     if (tagsArray.indexOf(value) !== -1) {
       return null;
     }
-    if (this.state.alltags.indexOf(value) > -1) {
+    if (this.state.allTags.indexOf(value) > -1) {
       const newtags = tagsArray.concat(event.target.value);
       event.target.value = "";
       this.setState({
@@ -33,14 +28,12 @@ class Polls extends Component {
       });
     }
   };
-
   deleteTag = tag => {
     const newtags = this.state.tags.filter(item => item !== tag);
     this.setState({
       tags: newtags
     });
   };
-
   render() {
     let polls = this.props.polls.polls;
     const filteredArray = [];
@@ -92,7 +85,7 @@ class Polls extends Component {
                 </div>
                 <datalist id="data">
                   <select>
-                    {this.state.alltags.map((item, i) => (
+                    {this.state.allTags.map((item, i) => (
                       <option key={i} value={item}>
                         {item}
                       </option>

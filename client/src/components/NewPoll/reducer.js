@@ -31,6 +31,7 @@ const reducer = function newPollReducer(state = initialState, action) {
 
     case POLL_CREATE_SUCCESS:
       return {
+        ...state,
         newPoll: action.poll,
         requesting: false,
         successful: true,
@@ -59,6 +60,7 @@ const reducer = function newPollReducer(state = initialState, action) {
 
     case POLL_CREATE_RESET:
       return {
+        ...state,
         newPoll: {},
         requesting: false,
         successful: false,

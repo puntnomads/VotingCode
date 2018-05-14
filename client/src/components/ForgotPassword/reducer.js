@@ -15,6 +15,7 @@ const reducer = function forgotPasswordReducer(state = initialState, action) {
   switch (action.type) {
     case FORGOT_PASSWORD_REQUESTING:
       return {
+        ...state,
         requesting: true,
         successful: false,
         messages: [
@@ -25,6 +26,7 @@ const reducer = function forgotPasswordReducer(state = initialState, action) {
 
     case FORGOT_PASSWORD_SUCCESS:
       return {
+        ...state,
         errors: [],
         messages: [],
         requesting: false,
@@ -33,6 +35,7 @@ const reducer = function forgotPasswordReducer(state = initialState, action) {
 
     case FORGOT_PASSWORD_ERROR:
       return {
+        ...state,
         errors: state.errors.concat([
           {
             body: action.error,

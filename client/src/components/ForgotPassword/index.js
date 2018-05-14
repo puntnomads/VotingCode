@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Grid, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCaptcha from "react-google-recaptcha";
 import forgotPasswordRequest from "./actions";
 import Input from "../Lib/Input";
 import ErrorBoundary from "../Lib/ErrorBoundary";
@@ -71,7 +71,7 @@ class ForgotPassword extends Component {
                     validate={emailRequired}
                     component={Input}
                   />
-                  <ReCAPTCHA
+                  <ReCaptcha
                     ref="recaptcha"
                     sitekey="6Lev4FgUAAAAAGVKXzP0eK7MfB5JYEBzu67_Z3Rv"
                     onChange={this.getRecaptchaValue}

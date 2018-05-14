@@ -12,6 +12,7 @@ const reducer = function userReducer(state = initialSate, action) {
   switch (action.type) {
     case USER_SET:
       return {
+        ...state,
         token: action.token,
         ttl: action.ttl,
         created: action.created,
@@ -21,6 +22,7 @@ const reducer = function userReducer(state = initialSate, action) {
 
     case USER_UNSET:
       return {
+        ...state,
         token: null,
         ttl: null,
         created: null,

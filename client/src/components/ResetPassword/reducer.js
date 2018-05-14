@@ -15,6 +15,7 @@ const reducer = function loginReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_PASSWORD_REQUESTING:
       return {
+        ...state,
         requesting: true,
         successful: false,
         messages: [{ body: "Logging in...", time: new Date() }],
@@ -23,6 +24,7 @@ const reducer = function loginReducer(state = initialState, action) {
 
     case RESET_PASSWORD_SUCCESS:
       return {
+        ...state,
         errors: [],
         messages: [],
         requesting: false,
@@ -31,6 +33,7 @@ const reducer = function loginReducer(state = initialState, action) {
 
     case RESET_PASSWORD_ERROR:
       return {
+        ...state,
         errors: state.errors.concat([
           {
             body: action.error,

@@ -41,7 +41,6 @@ class Poll extends Component {
     }
     this.props.pollUpdate({ options, id });
   };
-
   render() {
     const {
       newOption,

@@ -6,13 +6,11 @@ const AuthenticationHOC = WrappedComponent => {
     componentWillMount() {
       this.checkAuthentication(this.props);
     }
-
     componentWillReceiveProps(nextProps) {
       if (nextProps.location !== this.props.location) {
         this.checkAuthentication(nextProps);
       }
     }
-
     checkAuthentication(params) {
       const { history } = params;
       const user = JSON.parse(localStorage.getItem("user"));
@@ -20,12 +18,10 @@ const AuthenticationHOC = WrappedComponent => {
         history.replace({ pathname: "/polls" });
       }
     }
-
     render() {
       return <WrappedComponent {...this.props} />;
     }
   }
-
   return withRouter(Authenticated);
 };
 
